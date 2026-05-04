@@ -44,15 +44,17 @@ The whitepaper-v3.md draft (May 2026) is the seed. Every node carries `source_se
 
 First complete pass of the paper is in (2026-05-03). Graph contents:
 
+<!-- node-counts:start -->
 | Type | Count |
 |---|---|
-| Questions (Q) | 8 |
-| Claims (C) | 47 |
-| Evidence (E) | 70 |
-| Methods (M) | 5 |
+| Questions (Q) | 43 |
+| Claims (C) | 53 |
+| Evidence (E) | 112 |
+| Methods (M) | 6 |
 | Sources (S) | 134 |
-| **Total nodes** | **264** |
+| **Total nodes** | **348** |
+<!-- node-counts:end -->
 
-Every Claim addresses at least one Question. Every Evidence node supports at least one Claim and derives from at least one Source. The Methods (Four-Tier Taxonomy, Three Architectural Principles, Four-Term Liability Formula, 1:10:100 Cost Heuristic, Failure-Mode Taxonomy) are referenced by the Claims that invoke them. All edge references in the graph resolve to existing nodes.
+Every Claim addresses at least one Question. Every Evidence node supports at least one Claim and derives from at least one Source. The Methods (Four-Tier Taxonomy, Three Architectural Principles, Four-Term Liability Formula, 1:10:100 Cost Heuristic, Failure-Mode Taxonomy, AI-Data Property ↔ Tier-3 Architecture Mapping) are referenced by the Claims that invoke them. All edge references in the graph resolve to existing nodes.
 
 The first pass mirrors the paper's argument structure section by section. Counterclaims, counter-evidence, additional questions, and edge corrections are welcomed via the contribution mechanism documented in CONTRIBUTING.md.
