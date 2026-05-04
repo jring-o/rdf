@@ -50,8 +50,8 @@ export default async function HomePage() {
         <p className="text-lg leading-relaxed text-muted-foreground">
           The SciOS <em>Resilient Data Futures</em> whitepaper argues that
           research data loss is architectural; that the accumulated loss is
-          an institutional liability; and that the solution to data loss
-          hedges the liability while producing the data substrate AI-ready
+          an institutional liability; and that the solution to architectural data loss
+          hedges the liability while simultaneously producing the infrastructure AI-ready
           institutions are looking for. We publish that argument as a{" "}
           <strong className="text-foreground">discourse graph</strong> —
           every claim, evidence item, question, method, and source is its
