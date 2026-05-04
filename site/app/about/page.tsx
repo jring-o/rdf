@@ -58,8 +58,8 @@ export default function AboutPage() {
           content, and to demonstrate what becomes possible once it exists.
         </p>
         <p>
-          <strong>Contribution becomes node-shaped.</strong> The argument is
-          contributable at the right grain. A counterclaim is a new node
+          <strong>Contribution becomes node-shaped.</strong>{" "}
+          The argument is contributable at the right grain. A counterclaim is a new node
           attached to the original, not a competing paper published
           somewhere else. A new piece of evidence is a new node, not a
           fight over a paragraph. A new question opens a line the existing
@@ -81,8 +81,8 @@ export default function AboutPage() {
           edge.
         </p>
         <p>
-          <strong>Credit becomes granular.</strong> Each node has its own
-          ID and its own PID — citable independently. A Method, a Source,
+          <strong>Credit becomes granular.</strong>{" "}
+          Each node has its own ID and its own PID — citable independently. A Method, a Source,
           an Evidence, a Claim can be cited (and tracked) on its own merit.
           The contributor who proposed C-0017 gets credit when C-0017 is
           invoked, even when the paper that introduced it isn&apos;t.
@@ -132,7 +132,8 @@ export default function AboutPage() {
         <h2 className="font-heading">How to contribute</h2>
         <p>
           Discussion happens at node granularity. Open an issue with the{" "}
-          <code>node:&lt;ID&gt;</code> label, or open a pull request that
+          <code>node:&lt;ID&gt;</code>{" "}
+          label, or open a pull request that
           adds a counterclaim, counter-evidence, or a new question. The full
           contribution model lives in{" "}
           <a
