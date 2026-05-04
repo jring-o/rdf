@@ -1,0 +1,101 @@
+import Link from "next/link";
+import { FileText, Sparkles } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+export interface PaperToggleAnchor {
+  anchorId: string;
+  title: string;
+}
+
+export function PaperViewToggle({
+  active,
+  narrativeAnchors,
+}: {
+  active: { kind: "whitepaper" } | { kind: "narrative"; anchorId: string };
+  narrativeAnchors: PaperToggleAnchor[];
+}) {
+  return (
+    <div className="space-y-2">
+      <p className="font-sans text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+        Read as
+      </p>
+      <div className="flex flex-wrap gap-2">
+        <ToggleChip
+          href="/narratives"
+          active={active.kind === "whitepaper"}
+          icon={<FileText className="h-3.5 w-3.5 shrink-0" />}
+          label="Original whitepaper"
+          sublabel="Source · paper-shaped"
+        />
+        {narrativeAnchors.map((a) => (
+          <ToggleChip
+            key={a.anchorId}
+            href={`/narratives/${a.anchorId}`}
+            active={active.kind === "narrative" && active.anchorId === a.anchorId}
+            icon={<Sparkles className="h-3.5 w-3.5 shrink-0" />}
+            label={a.title}
+            mono={a.anchorId}
+            sublabel="Composed · anchored"
+          />
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function ToggleChip({
+  href,
+  active,
+  icon,
+  label,
+  sublabel,
+  mono,
+}: {
+  href: string;
+  active: boolean;
+  icon: React.ReactNode;
+  label: string;
+  sublabel?: string;
+  mono?: string;
+}) {
+  return (
+    <Link
+      href={href}
+      aria-current={active ? "page" : undefined}
+      className={cn(
+        "group flex max-w-xs items-start gap-2 rounded-md border px-3 py-2 text-left transition-colors",
+        active
+          ? "border-primary bg-primary text-primary-foreground shadow-sm"
+          : "border-border bg-card text-foreground hover:border-primary/50 hover:bg-accent",
+      )}
+    >
+      <span
+        className={cn(
+          "mt-0.5",
+          active ? "text-primary-foreground/90" : "text-primary/80",
+        )}
+      >
+        {icon}
+      </span>
+      <span className="min-w-0 space-y-0.5">
+        <span className="block truncate text-sm font-medium leading-tight">
+          {label}
+        </span>
+        {(mono || sublabel) && (
+          <span
+            className={cn(
+              "block text-[11px] leading-tight",
+              active
+                ? "text-primary-foreground/75"
+                : "text-muted-foreground",
+            )}
+          >
+            {mono && <span className="font-mono">{mono}</span>}
+            {mono && sublabel && " · "}
+            {sublabel}
+          </span>
+        )}
+      </span>
+    </Link>
+  );
+}
