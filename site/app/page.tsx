@@ -7,6 +7,7 @@ import { Separator } from "@/components/ui/separator";
 import { loadGraph } from "@/lib/graph";
 import { type NodeType } from "@/lib/types";
 import { NodeBadge } from "@/components/node-badge";
+import { GraphViewClient } from "@/components/graph-view-loader";
 
 const TYPE_BLURB: Record<NodeType, string> = {
   question: "Open lines the work addresses. Each Question gathers Claims that respond to it.",
@@ -37,38 +38,73 @@ export default async function HomePage() {
   const counts = (Object.entries(graph.byType) as [NodeType, unknown[]][]).map(
     ([type, list]) => ({ type, count: list.length }),
   );
+  const previewNodes = Array.from(graph.nodes.values()).map((n) => ({
+    id: n.id,
+    type: n.type,
+    title: n.title,
+  }));
+  const previewEdges = Array.from(graph.nodes.values()).flatMap((n) =>
+    n.outgoing
+      .filter((o) => graph.nodes.has(o.to))
+      .map((o) => ({ from: n.id, to: o.to, edge: o.edge })),
+  );
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16 sm:px-6 sm:py-24">
-      <div className="max-w-3xl space-y-6">
-        <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-          A discourse graph
-        </p>
-        <h1 className="font-heading text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
-          Resilient Data Futures
-        </h1>
-        <p className="text-lg leading-relaxed text-muted-foreground">
-          The SciOS <em>Resilient Data Futures</em> whitepaper argues that
-          research data loss is architectural; that the accumulated loss is
-          an institutional liability; and that the solution to architectural data loss
-          hedges the liability while simultaneously producing the infrastructure AI-ready
-          institutions are looking for. We publish that argument as a{" "}
-          <strong className="text-foreground">discourse graph</strong> —
-          every claim, evidence item, question, method, and source is its
-          own addressable node. The graph is canonical. The paper is one
-          rendered view over it.
-        </p>
-        <div className="flex flex-wrap items-center gap-3 pt-2">
-          <LinkButton href="/about" size="lg">
-            What is a discourse graph?
-            <ArrowRight className="ml-1.5 h-4 w-4" />
-          </LinkButton>
-          <LinkButton href="/graph" variant="outline" size="lg">
-            Explore the graph
-          </LinkButton>
-          <LinkButton href="/narratives" variant="ghost" size="lg">
-            Read narratives
-          </LinkButton>
+    <div className="mx-auto max-w-7xl px-4 py-16 sm:px-6 sm:py-24">
+      <div className="grid gap-10 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)] lg:gap-12 lg:items-center">
+        <div className="space-y-6">
+          <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
+            A discourse graph
+          </p>
+          <h1 className="font-heading text-4xl font-semibold leading-[1.1] tracking-tight sm:text-5xl">
+            Resilient Data Futures
+          </h1>
+          <p className="text-lg leading-relaxed text-muted-foreground">
+            The SciOS <em>Resilient Data Futures</em> whitepaper argues that
+            research data loss is architectural; that the accumulated loss is
+            an institutional liability; and that the solution to architectural data loss
+            hedges the liability while simultaneously producing the infrastructure AI-ready
+            institutions are looking for. We publish that argument as a{" "}
+            <strong className="text-foreground">discourse graph</strong> —
+            every claim, evidence item, question, method, and source is its
+            own addressable node. The graph is canonical. The paper is one
+            rendered view over it.
+          </p>
+          <div className="flex flex-wrap items-center gap-3 pt-2">
+            <LinkButton href="/about" size="lg">
+              What is a discourse graph?
+              <ArrowRight className="ml-1.5 h-4 w-4" />
+            </LinkButton>
+            <LinkButton href="/graph" variant="outline" size="lg">
+              Explore the graph
+            </LinkButton>
+            <LinkButton href="/narratives" variant="ghost" size="lg">
+              Read narratives
+            </LinkButton>
+          </div>
+        </div>
+
+        <div className="space-y-3">
+          <GraphViewClient
+            nodes={previewNodes}
+            edges={previewEdges}
+            layout="cose"
+            height={380}
+            interactive={false}
+            zoomBoost={1.7}
+          />
+          <div className="flex items-center justify-between gap-3">
+            <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+              {graph.nodes.size} nodes · {previewEdges.length} edges
+            </p>
+            <Link
+              href="/graph"
+              className="inline-flex items-center gap-1.5 font-sans text-xs font-medium text-primary hover:underline"
+            >
+              View full graph
+              <ArrowRight className="h-3.5 w-3.5" />
+            </Link>
+          </div>
         </div>
       </div>
 

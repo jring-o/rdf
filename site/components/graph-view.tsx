@@ -57,6 +57,17 @@ export interface GraphViewProps {
   height?: number;
   /** When true, "Open full page" links open in a new tab. */
   openLinksInNewTab?: boolean;
+  /**
+   * When false, disable zoom/pan/drag/click — the graph renders as a static
+   * preview. Default true.
+   */
+  interactive?: boolean;
+  /**
+   * After the initial zoomToFit, multiply zoom by this factor. Useful for
+   * preview embeds where zoomToFit pads too far out due to outlier nodes.
+   * Default 1 (no boost).
+   */
+  zoomBoost?: number;
 }
 
 const NODE_COLORS_LIGHT: Record<NodeType, string> = {
@@ -137,6 +148,8 @@ export function GraphView({
   anchorId,
   height = 540,
   openLinksInNewTab = false,
+  interactive = true,
+  zoomBoost = 1,
 }: GraphViewProps) {
   const isDark = useDarkMode();
   const containerRef = React.useRef<HTMLDivElement | null>(null);
@@ -279,40 +292,72 @@ export function GraphView({
             cooldownTicks={isBundle ? 60 : 200}
             warmupTicks={isBundle ? 0 : 40}
             d3AlphaDecay={isBundle ? 0.05 : 0.03}
-            enableNodeDrag={true}
-            onNodeClick={(node) => setSelectedId((node as RFGNode).id)}
-            onBackgroundClick={() => setSelectedId(null)}
+            enableNodeDrag={interactive}
+            enableZoomInteraction={interactive}
+            enablePanInteraction={interactive}
+            onNodeClick={
+              interactive
+                ? (node) => setSelectedId((node as RFGNode).id)
+                : undefined
+            }
+            onBackgroundClick={
+              interactive ? () => setSelectedId(null) : undefined
+            }
             onEngineStop={() => {
               if (hasFittedRef.current) return;
               hasFittedRef.current = true;
-              fgRef.current?.zoomToFit(400, 24);
+              const fg = fgRef.current;
+              if (!fg) return;
+              fg.zoomToFit(400, 24);
+              if (zoomBoost !== 1) {
+                window.setTimeout(() => {
+                  // Re-center on the median of node positions — robust to a
+                  // few outlier nodes pulling the bounding-box center off the
+                  // visual mass. Then apply the zoom boost.
+                  const xs: number[] = [];
+                  const ys: number[] = [];
+                  for (const n of data.nodes) {
+                    if (typeof n.x === "number") xs.push(n.x);
+                    if (typeof n.y === "number") ys.push(n.y);
+                  }
+                  xs.sort((a, b) => a - b);
+                  ys.sort((a, b) => a - b);
+                  const cx = xs.length ? xs[Math.floor(xs.length / 2)] : 0;
+                  const cy = ys.length ? ys[Math.floor(ys.length / 2)] : 0;
+                  const current = fg.zoom();
+                  fg.centerAt(cx, cy, 250);
+                  fg.zoom(current * zoomBoost, 250);
+                }, 420);
+              }
             }}
           />
         ) : null}
       </div>
 
-      <Sheet
-        open={!!selectedId}
-        onOpenChange={(open) => {
-          if (!open) setSelectedId(null);
-        }}
-        modal={false}
-      >
-        <SheetContent
-          side="right"
-          className="w-full sm:max-w-md p-0"
+      {interactive && (
+        <Sheet
+          open={!!selectedId}
+          onOpenChange={(open) => {
+            if (!open) setSelectedId(null);
+          }}
+          modal={false}
         >
-          {selectedNode ? (
-            <NodeDetailPanel
-              node={selectedNode}
-              edges={edges}
-              nodeMap={nodeMap}
-              onSelectNode={(id) => setSelectedId(id)}
-              openLinksInNewTab={openLinksInNewTab}
-            />
-          ) : null}
-        </SheetContent>
-      </Sheet>
+          <SheetContent
+            side="right"
+            className="w-full sm:max-w-md p-0"
+          >
+            {selectedNode ? (
+              <NodeDetailPanel
+                node={selectedNode}
+                edges={edges}
+                nodeMap={nodeMap}
+                onSelectNode={(id) => setSelectedId(id)}
+                openLinksInNewTab={openLinksInNewTab}
+              />
+            ) : null}
+          </SheetContent>
+        </Sheet>
+      )}
     </>
   );
 }
