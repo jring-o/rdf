@@ -28,6 +28,11 @@ export interface NarrativeFrontmatter {
   audience?: string;
   length?: string;
   voice?: string;
+  /** "1-hop" | "2-hop" | "semantic" — how the bundle was assembled. */
+  bundle?: string;
+  /** "tight" | "balanced" | "wide" — q-overlap threshold. Only set when bundle === "semantic". */
+  breadth?: string;
+  /** Legacy field; pre-bundle narratives recorded depth instead. */
   depth?: number;
   generatedAt?: string;
   generatedBy?: string;
@@ -147,6 +152,8 @@ function parseNarrativeFrontmatter(
     audience: toStringMaybe(data.audience),
     length: toStringMaybe(data.length),
     voice: toStringMaybe(data.voice),
+    bundle: toStringMaybe(data.bundle),
+    breadth: toStringMaybe(data.breadth),
     depth: typeof depth === "number" ? depth : undefined,
     generatedAt: toStringMaybe(data.generatedAt),
     generatedBy: toStringMaybe(data.generatedBy),

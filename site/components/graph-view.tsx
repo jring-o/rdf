@@ -55,6 +55,8 @@ export interface GraphViewProps {
   layout?: "concentric" | "cose";
   anchorId?: string;
   height?: number;
+  /** When true, "Open full page" links open in a new tab. */
+  openLinksInNewTab?: boolean;
 }
 
 const NODE_COLORS_LIGHT: Record<NodeType, string> = {
@@ -134,6 +136,7 @@ export function GraphView({
   layout = "concentric",
   anchorId,
   height = 540,
+  openLinksInNewTab = false,
 }: GraphViewProps) {
   const isDark = useDarkMode();
   const containerRef = React.useRef<HTMLDivElement | null>(null);
@@ -305,6 +308,7 @@ export function GraphView({
               edges={edges}
               nodeMap={nodeMap}
               onSelectNode={(id) => setSelectedId(id)}
+              openLinksInNewTab={openLinksInNewTab}
             />
           ) : null}
         </SheetContent>
@@ -318,6 +322,7 @@ interface NodeDetailPanelProps {
   edges: GraphViewEdge[];
   nodeMap: Map<string, GraphViewNode>;
   onSelectNode: (id: string) => void;
+  openLinksInNewTab?: boolean;
 }
 
 function NodeDetailPanel({
@@ -325,6 +330,7 @@ function NodeDetailPanel({
   edges,
   nodeMap,
   onSelectNode,
+  openLinksInNewTab = false,
 }: NodeDetailPanelProps) {
   const out: { edge: EdgeType; to: string }[] = [];
   const inc: { edge: EdgeType; from: string }[] = [];
@@ -392,7 +398,13 @@ function NodeDetailPanel({
       </div>
 
       <div className="border-t border-border p-4 flex items-center gap-2">
-        <LinkButton href={`/node/${node.id}`} className="flex-1 justify-center">
+        <LinkButton
+          href={`/node/${node.id}`}
+          className="flex-1 justify-center"
+          {...(openLinksInNewTab
+            ? { target: "_blank", rel: "noopener" }
+            : {})}
+        >
           Open full page
           <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
         </LinkButton>

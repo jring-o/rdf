@@ -27,6 +27,8 @@ export const maxDuration = 60;
 const AUDIENCES = ["academic", "executive", "blog", "position"] as const;
 const LENGTHS = ["short", "medium", "long"] as const;
 const VOICES = ["formal", "conversational", "plain"] as const;
+const BUNDLES = ["1-hop", "2-hop", "semantic"] as const;
+const BREADTHS = ["tight", "balanced", "wide"] as const;
 
 const MAX_CONTENT_BYTES = 50_000;
 
@@ -35,7 +37,8 @@ interface ContributeBody {
   audience?: string;
   length?: string;
   voice?: string;
-  depth?: number;
+  bundle?: string;
+  breadth?: string;
   model?: string;
   content?: string;
 }
@@ -50,7 +53,9 @@ interface ValidatedInput {
   audience: (typeof AUDIENCES)[number];
   length: (typeof LENGTHS)[number];
   voice: (typeof VOICES)[number];
-  depth: 1 | 2;
+  bundle: (typeof BUNDLES)[number];
+  /** Only meaningful when bundle === "semantic". */
+  breadth?: (typeof BREADTHS)[number];
   model: string;
   content: string;
 }
@@ -68,7 +73,19 @@ function validate(body: ContributeBody): ValidatedInput | ValidationError {
   if (!body.voice || !VOICES.includes(body.voice as (typeof VOICES)[number])) {
     return { status: 400, body: { error: "invalid_voice" } };
   }
-  const depth = body.depth === 2 ? 2 : 1;
+  if (!body.bundle || !BUNDLES.includes(body.bundle as (typeof BUNDLES)[number])) {
+    return { status: 400, body: { error: "invalid_bundle" } };
+  }
+  let breadth: (typeof BREADTHS)[number] | undefined;
+  if (body.bundle === "semantic") {
+    if (
+      !body.breadth ||
+      !BREADTHS.includes(body.breadth as (typeof BREADTHS)[number])
+    ) {
+      return { status: 400, body: { error: "invalid_breadth" } };
+    }
+    breadth = body.breadth as (typeof BREADTHS)[number];
+  }
   if (typeof body.content !== "string" || body.content.length === 0) {
     return { status: 400, body: { error: "missing_content" } };
   }
@@ -92,7 +109,8 @@ function validate(body: ContributeBody): ValidatedInput | ValidationError {
     audience: body.audience as (typeof AUDIENCES)[number],
     length: body.length as (typeof LENGTHS)[number],
     voice: body.voice as (typeof VOICES)[number],
-    depth: depth as 1 | 2,
+    bundle: body.bundle as (typeof BUNDLES)[number],
+    breadth,
     model: body.model,
     content: body.content,
   };
@@ -108,7 +126,8 @@ function buildFileBody(
   lines.push(`audience: ${v.audience}`);
   lines.push(`length: ${v.length}`);
   lines.push(`voice: ${v.voice}`);
-  lines.push(`depth: ${v.depth}`);
+  lines.push(`bundle: ${v.bundle}`);
+  if (v.breadth) lines.push(`breadth: ${v.breadth}`);
   lines.push(`generatedAt: ${new Date().toISOString()}`);
   lines.push(`generatedBy: web`);
   lines.push(`model: ${v.model}`);
@@ -242,7 +261,7 @@ function buildPrBody(v: ValidatedInput, login: string): string {
     `- audience: ${v.audience}`,
     `- length: ${v.length}`,
     `- voice: ${v.voice}`,
-    `- depth: ${v.depth}`,
+    `- bundle: ${v.bundle}${v.breadth ? ` (${v.breadth})` : ""}`,
     `- model: \`${v.model}\``,
     `- contributor: @${login}`,
     "",

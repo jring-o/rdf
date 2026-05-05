@@ -1,11 +1,16 @@
 "use client";
 
 import * as React from "react";
-import { GitPullRequest, Loader2, Sparkles, Square } from "lucide-react";
+import Link from "next/link";
+import { ChevronDown, ChevronRight, GitPullRequest, Loader2, Sparkles, Square } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
+import { GraphViewClient } from "@/components/graph-view-loader";
 import { MarkdownProse } from "@/components/markdown-prose";
+import { NodeBadge } from "@/components/node-badge";
 import { cn } from "@/lib/utils";
+import type { EdgeType, NodeType } from "@/lib/types";
+import { NODE_TYPES } from "@/lib/types";
 
 interface NodeOption {
   id: string;
@@ -14,9 +19,30 @@ interface NodeOption {
   typeLabel: string;
 }
 
+interface BundleNode {
+  id: string;
+  type: NodeType;
+  title: string;
+  isAnchor: boolean;
+  depth: number;
+}
+
+interface BundleData {
+  anchor: string;
+  strategy: "hops" | "semantic";
+  depth?: 1 | 2;
+  qOverlap?: 1 | 2 | 3;
+  nodes: BundleNode[];
+  edges: Array<{ from: string; to: string; edge: string }>;
+}
+
 type Audience = "academic" | "executive" | "blog" | "position";
 type Length = "short" | "medium" | "long";
 type Voice = "formal" | "conversational" | "plain";
+/** Bundle = the slice of the graph the LLM sees. */
+type Bundle = "1-hop" | "2-hop" | "semantic";
+/** Q-overlap threshold for the semantic walk: tight=3, balanced=2, wide=1. */
+type Breadth = "tight" | "balanced" | "wide";
 
 // Mirrors the OpenRouter fallback chain configured in /api/generate/route.ts.
 // Recorded in narrative frontmatter for provenance.
@@ -27,12 +53,33 @@ const SESSION_KEY = "pendingNarrative";
 
 interface PendingNarrative {
   anchorId: string;
-  depth: 1 | 2;
+  bundle: Bundle;
+  breadth: Breadth;
   audience: Audience;
   length: Length;
   voice: Voice;
   content: string;
   model: string;
+}
+
+function breadthToQOverlap(b: Breadth): 1 | 2 | 3 {
+  if (b === "tight") return 3;
+  if (b === "wide") return 1;
+  return 2;
+}
+
+function bundleToRequest(
+  b: Bundle,
+  breadth: Breadth,
+): {
+  strategy: "hops" | "semantic";
+  depth?: 1 | 2;
+  qOverlap?: 1 | 2 | 3;
+} {
+  if (b === "semantic") {
+    return { strategy: "semantic", qOverlap: breadthToQOverlap(breadth) };
+  }
+  return { strategy: "hops", depth: b === "2-hop" ? 2 : 1 };
 }
 
 const AUDIENCES: ReadonlyArray<{ value: Audience; label: string; hint: string }> = [
@@ -54,12 +101,71 @@ const VOICES: ReadonlyArray<{ value: Voice; label: string; hint: string }> = [
   { value: "plain", label: "Plain", hint: "Jargon-free, concrete" },
 ];
 
+const BREADTHS: ReadonlyArray<{
+  value: Breadth;
+  label: string;
+  hint: string;
+  tooltip: string;
+}> = [
+  {
+    value: "tight",
+    label: "Tight",
+    hint: "≥3 shared claims",
+    tooltip:
+      "A related Question only joins the bundle if 3 or more in-bundle Claims address it. Strongest signal of relatedness; smallest, most focused bundle.",
+  },
+  {
+    value: "balanced",
+    label: "Balanced",
+    hint: "≥2 shared claims (default)",
+    tooltip:
+      "A related Question joins if at least 2 in-bundle Claims address it. A good compromise between focus and breadth.",
+  },
+  {
+    value: "wide",
+    label: "Wide",
+    hint: "≥1 shared claim (greedy)",
+    tooltip:
+      "A related Question joins as soon as a single in-bundle Claim addresses it. Casts a wider net — pulls in more upstream and downstream questions and their evidence.",
+  },
+];
+
+const BUNDLES: ReadonlyArray<{
+  value: Bundle;
+  label: string;
+  hint: string;
+  tooltip: string;
+}> = [
+  {
+    value: "1-hop",
+    label: "1 hop",
+    hint: "Anchor + direct neighbors",
+    tooltip:
+      "Plain BFS to depth 1. Pulls every node directly connected to the anchor — outbound or inbound — regardless of edge type. Smallest, fastest bundle. Type-blind: a Question seed grabs its addressing Claims plus anything else 1 hop away, with no filtering by argumentative role.",
+  },
+  {
+    value: "2-hop",
+    label: "2 hops",
+    hint: "Wider, type-blind",
+    tooltip:
+      "Plain BFS to depth 2. Pulls direct neighbors and their neighbors, regardless of edge type. Wider context but unfocused — includes anything reachable in two steps. Can balloon quickly on dense subgraphs.",
+  },
+  {
+    value: "semantic",
+    label: "Semantic",
+    hint: "Type-aware walk",
+    tooltip:
+      "Type-aware walk driven by argumentative purpose. From a Question: pulls its addressing Claims, each Claim's supporting and opposing Evidence with their Sources, the Methods used, counter-Claims expanded recursively along opposes-chains until they converge, plus related Questions when ≥2 Claims in the bundle address them. From a Claim: just the argumentation lattice around it. Stops on graph topology, not depth — produces tight, on-purpose bundles.",
+  },
+];
+
 export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
   // Default-empty initial state. Resume-from-OAuth populates these in a
   // mount-only useEffect below so server and client render identically on
   // first paint (avoiding a hydration mismatch).
   const [anchorId, setAnchorId] = React.useState("");
-  const [depth, setDepth] = React.useState<1 | 2>(1);
+  const [bundle, setBundle] = React.useState<Bundle>("1-hop");
+  const [breadth, setBreadth] = React.useState<Breadth>("balanced");
   const [audience, setAudience] = React.useState<Audience>("academic");
   const [length, setLength] = React.useState<Length>("medium");
   const [voice, setVoice] = React.useState<Voice>("formal");
@@ -67,6 +173,7 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
   const [streaming, setStreaming] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
   const [submitting, setSubmitting] = React.useState(false);
+  const [bundleData, setBundleData] = React.useState<BundleData | null>(null);
   const abortRef = React.useRef<AbortController | null>(null);
 
   const matched = nodes.find((n) => n.id === anchorId.trim());
@@ -81,16 +188,40 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
     }
     setError(null);
     setOutput("");
+    setBundleData(null);
     setStreaming(true);
     const ctrl = new AbortController();
     abortRef.current = ctrl;
+
+    // Fetch the bundle in parallel with the streaming generate. It usually
+    // arrives long before the LLM finishes.
+    const req = bundleToRequest(bundle, breadth);
+    const bundleParams = new URLSearchParams({
+      anchor: matched.id,
+      strategy: req.strategy,
+      ...(req.depth ? { depth: String(req.depth) } : {}),
+      ...(req.qOverlap ? { qOverlap: String(req.qOverlap) } : {}),
+    });
+    void fetch(`/api/bundle?${bundleParams.toString()}`, {
+      cache: "no-store",
+      signal: ctrl.signal,
+    })
+      .then(async (r) => {
+        if (!r.ok) return;
+        const data = (await r.json()) as BundleData;
+        setBundleData(data);
+      })
+      .catch(() => {
+        // Non-fatal — the narrative still streams. Bundle viz just won't show.
+      });
+
     try {
       const res = await fetch("/api/generate", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           anchorId: matched.id,
-          depth,
+          ...bundleToRequest(bundle, breadth),
           audience,
           length,
           voice,
@@ -134,7 +265,8 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             anchorId: payload.anchorId,
-            depth: payload.depth,
+            bundle: payload.bundle,
+            breadth: payload.bundle === "semantic" ? payload.breadth : undefined,
             audience: payload.audience,
             length: payload.length,
             voice: payload.voice,
@@ -175,7 +307,8 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
     if (!output) return;
     const payload: PendingNarrative = {
       anchorId,
-      depth,
+      bundle,
+      breadth,
       audience,
       length,
       voice,
@@ -247,7 +380,8 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
       return;
     }
     setAnchorId(payload.anchorId);
-    setDepth(payload.depth);
+    setBundle(payload.bundle);
+    setBreadth(payload.breadth);
     setAudience(payload.audience);
     setLength(payload.length);
     setVoice(payload.voice);
@@ -297,14 +431,20 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
         </div>
 
         <ChipGroup
-          label="Depth"
-          value={depth}
-          onChange={setDepth}
-          options={[
-            { value: 1, label: "1 hop", hint: "Anchor + neighbors" },
-            { value: 2, label: "2 hops", hint: "Wider neighborhood" },
-          ]}
+          label="Bundle"
+          value={bundle}
+          onChange={setBundle}
+          options={BUNDLES}
         />
+
+        {bundle === "semantic" && (
+          <ChipGroup
+            label="Breadth"
+            value={breadth}
+            onChange={setBreadth}
+            options={BREADTHS}
+          />
+        )}
 
         <ChipGroup
           label="Audience"
@@ -387,14 +527,17 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
           </div>
         )}
         {(output || streaming) && (
-          <div>
-            {streaming && (
-              <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-primary">
-                <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-primary align-middle" />
-                {" "}streaming…
-              </p>
-            )}
-            <MarkdownProse source={output} />
+          <div className="space-y-6">
+            {bundleData && <BundleSummary data={bundleData} />}
+            <div>
+              {streaming && (
+                <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-primary">
+                  <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-primary align-middle" />
+                  {" "}streaming…
+                </p>
+              )}
+              <MarkdownProse source={output} />
+            </div>
           </div>
         )}
       </article>
@@ -405,7 +548,10 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
 interface ChipOption<T extends string | number> {
   value: T;
   label: string;
+  /** Short subtext rendered under the label. */
   hint?: string;
+  /** Longer text shown as the native hover tooltip. Falls back to `hint`. */
+  tooltip?: string;
 }
 
 function ChipGroup<T extends string | number>({
@@ -438,7 +584,7 @@ function ChipGroup<T extends string | number>({
                   ? "border-primary bg-primary text-primary-foreground"
                   : "border-border bg-card hover:border-primary/50 hover:bg-accent",
               )}
-              title={opt.hint}
+              title={opt.tooltip ?? opt.hint}
             >
               <span className="block font-medium">{opt.label}</span>
               {opt.hint && (
@@ -458,3 +604,147 @@ function ChipGroup<T extends string | number>({
     </div>
   );
 }
+
+const TYPE_ORDER: NodeType[] = ["question", "method", "claim", "evidence", "source"];
+
+const BundleSummary = React.memo(function BundleSummary({
+  data,
+}: {
+  data: BundleData;
+}) {
+  const [open, setOpen] = React.useState(true);
+
+  // Memoize the prop arrays for the force-graph viz so its internal effects
+  // don't see new references on each parent re-render (which happens on every
+  // streamed chunk of the narrative output) — without this the layout refits
+  // mid-stream and stutters.
+  const graphNodes = React.useMemo(
+    () =>
+      data.nodes.map((n) => ({
+        id: n.id,
+        type: n.type,
+        title: n.title,
+        isAnchor: n.isAnchor,
+      })),
+    [data.nodes],
+  );
+  const graphEdges = React.useMemo(
+    () =>
+      data.edges.map((e) => ({
+        from: e.from,
+        to: e.to,
+        edge: e.edge as EdgeType,
+      })),
+    [data.edges],
+  );
+
+  const grouped = React.useMemo(() => {
+    const map = new Map<NodeType, BundleNode[]>();
+    for (const t of NODE_TYPES) map.set(t, []);
+    for (const n of data.nodes) {
+      const list = map.get(n.type);
+      if (list) list.push(n);
+    }
+    for (const list of map.values()) {
+      list.sort((a, b) => {
+        if (a.isAnchor !== b.isAnchor) return a.isAnchor ? -1 : 1;
+        return a.id.localeCompare(b.id);
+      });
+    }
+    return map;
+  }, [data.nodes]);
+
+  const strategyLabel =
+    data.strategy === "semantic"
+      ? `semantic walk · q-overlap = ${data.qOverlap ?? 2}`
+      : `${data.depth ?? 1}-hop walk`;
+
+  return (
+    <section className="rounded-lg border border-border bg-card/50">
+      <button
+        type="button"
+        onClick={() => setOpen(!open)}
+        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
+        aria-expanded={open}
+      >
+        <span className="space-y-0.5">
+          <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-muted-foreground">
+            Bundle
+          </span>
+          <span className="block text-sm">
+            <span className="font-mono text-primary">{data.anchor}</span>
+            <span className="text-muted-foreground">
+              {" · "}
+              {data.nodes.length} node{data.nodes.length === 1 ? "" : "s"},{" "}
+              {data.edges.length} edge{data.edges.length === 1 ? "" : "s"}
+              {" · "}
+              {strategyLabel}
+            </span>
+          </span>
+        </span>
+        {open ? (
+          <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
+        ) : (
+          <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
+        )}
+      </button>
+      {open && (
+        <div className="space-y-4 border-t border-border px-4 py-4">
+          <div className="overflow-hidden rounded-md border border-border">
+            <GraphViewClient
+              nodes={graphNodes}
+              edges={graphEdges}
+              layout="concentric"
+              anchorId={data.anchor}
+              height={420}
+              openLinksInNewTab
+            />
+          </div>
+          <p className="text-[11px] text-muted-foreground">
+            These are the nodes the model was given as context. Scroll the
+            graph to zoom, drag to pan, click any node — chip or graph — to
+            open it in a new tab.
+          </p>
+          {TYPE_ORDER.map((t) => {
+            const list = grouped.get(t) ?? [];
+            if (list.length === 0) return null;
+            return (
+              <div key={t} className="space-y-1.5">
+                <div className="flex items-baseline gap-2">
+                  <NodeBadge type={t} size="sm" />
+                  <span className="font-sans text-[11px] text-muted-foreground">
+                    {list.length}
+                  </span>
+                </div>
+                <div className="flex flex-wrap gap-1.5">
+                  {list.map((n) => (
+                    <Link
+                      key={n.id}
+                      href={`/node/${n.id}`}
+                      target="_blank"
+                      rel="noopener"
+                      title={n.title}
+                      className={cn(
+                        "max-w-full truncate rounded-md border px-2 py-1 font-mono text-[11px] transition-colors",
+                        n.isAnchor
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border bg-background hover:border-primary/50 hover:bg-accent",
+                      )}
+                    >
+                      {n.id}
+                      {n.isAnchor && (
+                        <span className="ml-1 text-[9px] uppercase tracking-wider opacity-70">
+                          anchor
+                        </span>
+                      )}
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </section>
+  );
+});

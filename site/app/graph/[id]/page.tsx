@@ -73,9 +73,8 @@ export default async function BundlePage({
         </h1>
         <p className="text-muted-foreground">
           Depth-1 expansion: the anchor plus every node it directly points to
-          or is pointed at. This mirrors the bundle{" "}
-          <code className="font-mono text-sm">tools/regen.py</code> selects when
-          composing a narrative around this node. {bundle.nodes.length} nodes,{" "}
+          or is pointed at. This is the bundle composed around this node when
+          generating a narrative. {bundle.nodes.length} nodes,{" "}
           {bundle.edges.length} edges.
         </p>
       </header>

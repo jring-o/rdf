@@ -2,7 +2,7 @@ import { createOpenRouter } from "@openrouter/ai-sdk-provider";
 import { streamText } from "ai";
 
 import { loadGraphRuntime } from "@/lib/graph-runtime";
-import { buildBundleFromGraph } from "@/lib/bundle";
+import { buildBundleFromGraph, buildSemanticBundle } from "@/lib/bundle";
 import type { GraphNode } from "@/lib/types";
 import { EDGE_LABEL, EDGE_INVERSE_LABEL, NODE_TYPE_LABEL } from "@/lib/types";
 
@@ -12,14 +12,19 @@ export const maxDuration = 60;
 const AUDIENCES = ["academic", "executive", "blog", "position"] as const;
 const LENGTHS = ["short", "medium", "long"] as const;
 const VOICES = ["formal", "conversational", "plain"] as const;
+const STRATEGIES = ["hops", "semantic"] as const;
 
 type Audience = (typeof AUDIENCES)[number];
 type Length = (typeof LENGTHS)[number];
 type Voice = (typeof VOICES)[number];
+type Strategy = (typeof STRATEGIES)[number];
 
 interface GenerateRequest {
   anchorId: string;
+  strategy: Strategy;
   depth: 1 | 2;
+  /** Q-overlap threshold for the semantic walk: 1 (wide) | 2 (balanced) | 3 (tight). */
+  qOverlap: 1 | 2 | 3;
   audience: Audience;
   length: Length;
   voice: Voice;
@@ -81,9 +86,14 @@ function nodeMarkdownBlock(node: GraphNode): string {
 function buildPromptBundle(
   graph: ReturnType<typeof loadGraphRuntime>,
   anchorId: string,
+  strategy: Strategy,
   depth: 1 | 2,
+  qOverlap: 1 | 2 | 3,
 ): string | null {
-  const bundle = buildBundleFromGraph(graph, anchorId, depth);
+  const bundle =
+    strategy === "semantic"
+      ? buildSemanticBundle(graph, anchorId, qOverlap)
+      : buildBundleFromGraph(graph, anchorId, depth);
   if (!bundle) return null;
 
   const ordered = [...bundle.nodes].sort((a, b) => {
@@ -92,17 +102,24 @@ function buildPromptBundle(
     return a.id.localeCompare(b.id);
   });
 
+  const composition =
+    strategy === "semantic"
+      ? `Bundle = type-aware semantic walk from anchor (q-overlap = ${qOverlap}). ${bundle.nodes.length} nodes, ${bundle.edges.length} edges.`
+      : `Bundle = depth-${depth} neighborhood. ${bundle.nodes.length} nodes, ${bundle.edges.length} edges.`;
+
   const parts: string[] = [];
   parts.push(`# Anchor: ${anchorId}`);
   parts.push("");
-  parts.push(
-    `Bundle = depth-${depth} neighborhood. ${bundle.nodes.length} nodes, ${bundle.edges.length} edges.`,
-  );
+  parts.push(composition);
   parts.push("");
   for (const bn of ordered) {
     const full = graph.nodes.get(bn.id);
     if (!full) continue;
-    const tag = bn.isAnchor ? " [ANCHOR]" : ` [depth ${bn.depth}]`;
+    const tag = bn.isAnchor
+      ? " [ANCHOR]"
+      : strategy === "semantic"
+      ? ""
+      : ` [depth ${bn.depth}]`;
     parts.push(`## ${full.id}${tag}`);
     parts.push("");
     parts.push(nodeMarkdownBlock(full));
@@ -152,6 +169,9 @@ function isLength(v: unknown): v is Length {
 function isVoice(v: unknown): v is Voice {
   return typeof v === "string" && (VOICES as readonly string[]).includes(v);
 }
+function isStrategy(v: unknown): v is Strategy {
+  return typeof v === "string" && (STRATEGIES as readonly string[]).includes(v);
+}
 
 export async function POST(req: Request) {
   let body: Partial<GenerateRequest>;
@@ -162,7 +182,10 @@ export async function POST(req: Request) {
   }
 
   const anchorId = body.anchorId;
+  const strategy: Strategy = isStrategy(body.strategy) ? body.strategy : "hops";
   const depth = body.depth === 2 ? 2 : 1;
+  const qOverlap: 1 | 2 | 3 =
+    body.qOverlap === 1 || body.qOverlap === 3 ? body.qOverlap : 2;
   const audience = isAudience(body.audience) ? body.audience : "academic";
   const length = isLength(body.length) ? body.length : "medium";
   const voice = isVoice(body.voice) ? body.voice : "formal";
@@ -177,7 +200,7 @@ export async function POST(req: Request) {
   }
 
   const graph = loadGraphRuntime();
-  const bundleText = buildPromptBundle(graph, anchorId, depth);
+  const bundleText = buildPromptBundle(graph, anchorId, strategy, depth, qOverlap);
   if (!bundleText) {
     return new Response(`anchor not found: ${anchorId}`, { status: 404 });
   }
