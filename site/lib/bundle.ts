@@ -1,4 +1,4 @@
-import type { EdgeType, GraphNode } from "./types";
+import type { EdgeType, Graph, GraphNode } from "./types";
 import { loadGraph } from "./graph";
 
 export interface BundleNode {
@@ -23,14 +23,17 @@ export interface Bundle {
 }
 
 /**
- * Mirrors the depth-1 expansion in tools/regen.py: include the anchor, every
- * direct outbound, and every direct inbound. For Question anchors, also pull
- * Methods that any addressing Claim invokes — the regen tool does the same so
- * the anchor's argumentative neighborhood is intact.
+ * BFS expansion around an anchor up to maxDepth hops. Mirrors the bundle
+ * shape used by tools/regen.py: anchor + every directly-connected node
+ * (outbound or inbound). Closes the subgraph by including any edges that
+ * exist between two already-included nodes.
  */
-export async function buildBundle(anchorId: string): Promise<Bundle | null> {
-  const g = await loadGraph();
-  const anchor = g.nodes.get(anchorId);
+export function buildBundleFromGraph(
+  graph: Graph,
+  anchorId: string,
+  maxDepth = 1,
+): Bundle | null {
+  const anchor = graph.nodes.get(anchorId);
   if (!anchor) return null;
 
   const included = new Map<string, BundleNode>();
@@ -48,8 +51,8 @@ export async function buildBundle(anchorId: string): Promise<Bundle | null> {
 
   while (queue.length > 0) {
     const { id, depth } = queue.shift()!;
-    if (depth >= 1) continue;
-    const node = g.nodes.get(id);
+    if (depth >= maxDepth) continue;
+    const node = graph.nodes.get(id);
     if (!node) continue;
 
     const neighbors: Array<{ id: string; edge: EdgeType; from: string; to: string }> = [];
@@ -61,7 +64,7 @@ export async function buildBundle(anchorId: string): Promise<Bundle | null> {
     }
 
     for (const n of neighbors) {
-      const target = g.nodes.get(n.id);
+      const target = graph.nodes.get(n.id);
       if (!target) continue;
       if (!included.has(n.id)) {
         included.set(n.id, {
@@ -77,15 +80,14 @@ export async function buildBundle(anchorId: string): Promise<Bundle | null> {
         seen.add(key);
         edges.push({ from: n.from, to: n.to, edge: n.edge });
       }
-      if (depth + 1 < 1) {
+      if (depth + 1 < maxDepth) {
         queue.push({ id: n.id, depth: depth + 1 });
       }
     }
   }
 
-  // Add edges between any two included nodes (so the subgraph is closed)
   for (const node of included.values()) {
-    const full = g.nodes.get(node.id);
+    const full = graph.nodes.get(node.id);
     if (!full) continue;
     for (const out of full.outgoing) {
       if (!included.has(out.to)) continue;
@@ -101,4 +103,10 @@ export async function buildBundle(anchorId: string): Promise<Bundle | null> {
     nodes: Array.from(included.values()),
     edges,
   };
+}
+
+/** Build-time wrapper that loads the graph from disk. Existing callers. */
+export async function buildBundle(anchorId: string): Promise<Bundle | null> {
+  const g = await loadGraph();
+  return buildBundleFromGraph(g, anchorId, 1);
 }

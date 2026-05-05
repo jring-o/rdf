@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FileText, Sparkles } from "lucide-react";
+import { FileText, Sparkles, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 export interface PaperToggleAnchor {
@@ -38,6 +38,18 @@ export function PaperViewToggle({
             sublabel="Composed · anchored"
           />
         ))}
+      </div>
+      <div className="pt-6 mt-6 border-t-2 border-border">
+        <p className="mb-2 font-sans text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
+          Or compose a new one
+        </p>
+        <ToggleChip
+          href="/narratives/generate"
+          active={false}
+          icon={<Wand2 className="h-3.5 w-3.5 shrink-0" />}
+          label="Generate a narrative"
+          sublabel="On-demand · any anchor"
+        />
       </div>
     </div>
   );

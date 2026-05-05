@@ -67,7 +67,14 @@ export default async function NarrativesPage() {
             >
               composed narratives
             </Link>{" "}
-            below are early demonstrations of that direction.
+            below are early demonstrations of that direction, or you can{" "}
+            <Link
+              href="/narratives/generate"
+              className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+            >
+              generate one on demand
+            </Link>{" "}
+            for any anchor.
           </p>
         </div>
         <PaperViewToggle
