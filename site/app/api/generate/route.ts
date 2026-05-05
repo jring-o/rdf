@@ -41,10 +41,36 @@ const AUDIENCE_BRIEF: Record<Audience, string> = {
     "a position statement: declarative, principled, names the stake clearly, ends with what the audience should commit to.",
 };
 
-const LENGTH_BUDGET: Record<Length, string> = {
-  short: "approximately 250-400 words",
-  medium: "approximately 600-900 words",
-  long: "approximately 1200-1800 words",
+interface LengthSpec {
+  /** Word range — secondary support to the structural targets below. */
+  words: [number, number];
+  /** Paragraph count — the primary structural anchor. LLMs match paragraphs reliably. */
+  paragraphs: string;
+  /** Heading rules. */
+  headings: string;
+  /** Roughly how many bundle nodes to cite inline. */
+  citations: [number, number];
+}
+
+const LENGTH_SPEC: Record<Length, LengthSpec> = {
+  short: {
+    words: [250, 400],
+    paragraphs: "2 to 3 paragraphs",
+    headings: "no headings — straight prose",
+    citations: [3, 5],
+  },
+  medium: {
+    words: [600, 900],
+    paragraphs: "4 to 7 paragraphs",
+    headings: "1 short section heading is optional, otherwise none",
+    citations: [5, 10],
+  },
+  long: {
+    words: [1200, 1800],
+    paragraphs: "8 to 14 paragraphs",
+    headings: "3 to 5 section headings, dividing the argument",
+    citations: [10, 20],
+  },
 };
 
 const VOICE_BRIEF: Record<Voice, string> = {
@@ -89,7 +115,7 @@ function buildPromptBundle(
   strategy: Strategy,
   depth: 1 | 2,
   qOverlap: 1 | 2 | 3,
-): string | null {
+): { text: string; nodeCount: number } | null {
   const bundle =
     strategy === "semantic"
       ? buildSemanticBundle(graph, anchorId, qOverlap)
@@ -125,38 +151,51 @@ function buildPromptBundle(
     parts.push(nodeMarkdownBlock(full));
     parts.push("");
   }
-  return parts.join("\n");
+  return { text: parts.join("\n"), nodeCount: bundle.nodes.length };
 }
 
-const SYSTEM_PROMPT = `You compose narratives from a discourse graph of research nodes (Questions, Claims, Evidence, Methods, Sources). The graph is the source of truth.
+const SYSTEM_PROMPT = `You compose narratives from a discourse graph of research nodes — Questions, Claims, Evidence, Methods, Sources. The graph is the source of truth.
 
-Rules:
-- Cite nodes inline by their ID in square brackets, e.g. [C-0001], [E-0014], [M-0003]. Do NOT invent IDs.
-- Do NOT introduce facts, numbers, names, or claims that are not present in the bundle. If something seems missing, name the gap explicitly rather than filling it.
-- Treat the anchor node as the spine of the narrative; supporting nodes weave in around it.
-- Use the edge relationships (supports, opposes, addresses, derivedFrom, informs, usesMethod) as structural hints — supporting evidence supports, opposing evidence pushes back, methods clarify how a claim was reached.
-- Do not list the bundle. Compose prose. Use IDs as citations within sentences, not as bullet points.
-- Do not summarize the bundle's structure ("the bundle contains..."). Write the narrative directly.
-- Output GitHub-flavored Markdown. Use headings, paragraphs, the occasional list — but the dominant register is prose.`;
+A narrative is a single argument grounded in the bundle. The anchor node is the spine; supporting nodes weave in around it. Use edge relationships as structural hints — supporting evidence supports, opposing evidence pushes back, methods clarify how a claim was reached, sources back up evidence.
+
+Cite nodes inline by ID in square brackets, drawn directly from the bundle: [C-0001], [E-0014], [M-0003]. Use IDs as citations within sentences — never as bullet points or a reference list. Stay grounded in what the bundle says: every claim, number, name, or fact in your output must be traceable to a node. Where the bundle has gaps relative to the argument, name the gap explicitly rather than filling it.
+
+The bundle is candidate context, not a checklist. The user prompt specifies how many nodes to cite — most nodes in the bundle will not appear in the output, and that is correct. Pick the ones carrying the argument's load: usually the anchor plus its strongest supporting Claims and a handful of their Evidence and Sources. Skip the rest.
+
+Output GitHub-flavored Markdown — flowing prose, not lists.`;
 
 function userPrompt(
   bundle: string,
+  bundleNodeCount: number,
   audience: Audience,
   length: Length,
   voice: Voice,
 ): string {
+  const spec = LENGTH_SPEC[length];
+  const [wLo, wHi] = spec.words;
+  const [cLo, cHi] = spec.citations;
   return [
     `Compose a narrative from the bundle below.`,
     "",
-    `Audience/form: ${AUDIENCE_BRIEF[audience]}`,
-    `Length: ${LENGTH_BUDGET[length]}.`,
-    `Voice: ${VOICE_BRIEF[voice]}`,
+    `## Output specification`,
     "",
-    `--- BUNDLE ---`,
+    `- **Structure:** ${spec.paragraphs}, ${spec.headings}.`,
+    `- **Length:** ${wLo}–${wHi} words (use the paragraph count as your primary target; the word range is the band you should land in).`,
+    `- **Citations:** ${cLo}–${cHi} node IDs from the bundle, inline within sentences.`,
+    "",
+    `The bundle has ${bundleNodeCount} nodes. Most will not appear in your output. Pick the ${cLo}–${cHi} nodes carrying the argument's load — usually the anchor plus its strongest supporting Claims and a couple of their Evidence — and write only about those. Keep every sentence load-bearing: each one should assert, deliver a fact, or move the argument forward.`,
+    "",
+    `## Audience`,
+    AUDIENCE_BRIEF[audience],
+    "",
+    `## Voice`,
+    VOICE_BRIEF[voice],
+    "",
+    `--- BUNDLE (${bundleNodeCount} nodes) ---`,
     bundle,
     `--- END BUNDLE ---`,
     "",
-    `Now write the narrative.`,
+    `Write the narrative now. Target: ${spec.paragraphs} (${wLo}–${wHi} words), ${spec.headings}, ${cLo}–${cHi} inline citations. Keep every sentence load-bearing.`,
   ].join("\n");
 }
 
@@ -200,8 +239,8 @@ export async function POST(req: Request) {
   }
 
   const graph = loadGraphRuntime();
-  const bundleText = buildPromptBundle(graph, anchorId, strategy, depth, qOverlap);
-  if (!bundleText) {
+  const built = buildPromptBundle(graph, anchorId, strategy, depth, qOverlap);
+  if (!built) {
     return new Response(`anchor not found: ${anchorId}`, { status: 404 });
   }
 
@@ -219,7 +258,7 @@ export async function POST(req: Request) {
   const result = streamText({
     model,
     system: SYSTEM_PROMPT,
-    prompt: userPrompt(bundleText, audience, length, voice),
+    prompt: userPrompt(built.text, built.nodeCount, audience, length, voice),
     temperature: 0.7,
   });
 

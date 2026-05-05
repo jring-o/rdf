@@ -18,6 +18,7 @@ import {
   putFile,
   waitForFork,
 } from "@/lib/github-api";
+import { buildBundleFromGraph, buildSemanticBundle } from "@/lib/bundle";
 import { loadGraphRuntime } from "@/lib/graph-runtime";
 
 export const runtime = "nodejs";
@@ -116,8 +117,48 @@ function validate(body: ContributeBody): ValidatedInput | ValidationError {
   };
 }
 
+const BREADTH_TO_QOVERLAP: Record<(typeof BREADTHS)[number], 1 | 2 | 3> = {
+  tight: 3,
+  balanced: 2,
+  wide: 1,
+};
+
+function buildSidecarJson(
+  v: ValidatedInput,
+  generatedAt: string,
+  contributor: { login: string; htmlUrl: string },
+): string | null {
+  const graph = loadGraphRuntime();
+  let bundle;
+  if (v.bundle === "semantic") {
+    const qOverlap = v.breadth
+      ? BREADTH_TO_QOVERLAP[v.breadth]
+      : 2;
+    bundle = buildSemanticBundle(graph, v.anchorId, qOverlap);
+  } else {
+    const depth = v.bundle === "2-hop" ? 2 : 1;
+    bundle = buildBundleFromGraph(graph, v.anchorId, depth);
+  }
+  if (!bundle) return null;
+
+  const sidecar = {
+    anchor: bundle.anchor,
+    bundle: v.bundle,
+    ...(v.breadth ? { breadth: v.breadth } : {}),
+    generatedAt,
+    generatedBy: "web",
+    model: v.model,
+    contributor: contributor.login,
+    contributorUrl: contributor.htmlUrl,
+    nodes: bundle.nodes,
+    edges: bundle.edges,
+  };
+  return JSON.stringify(sidecar, null, 2) + "\n";
+}
+
 function buildFileBody(
   v: ValidatedInput,
+  generatedAt: string,
   contributor: { login: string; htmlUrl: string },
 ): string {
   const lines: string[] = [];
@@ -128,7 +169,7 @@ function buildFileBody(
   lines.push(`voice: ${v.voice}`);
   lines.push(`bundle: ${v.bundle}`);
   if (v.breadth) lines.push(`breadth: ${v.breadth}`);
-  lines.push(`generatedAt: ${new Date().toISOString()}`);
+  lines.push(`generatedAt: ${generatedAt}`);
   lines.push(`generatedBy: web`);
   lines.push(`model: ${v.model}`);
   lines.push(`contributor: ${contributor.login}`);
@@ -188,11 +229,14 @@ export async function POST(request: Request) {
     const branch = `narrative/${v.anchorId}-${shortId}`;
     await createBranch(token, viewer.login, env.repoName, branch, baseSha);
 
-    const filePath = `narratives/${v.anchorId}-${shortId}.md`;
-    const fileBody = buildFileBody(v, {
+    const generatedAt = new Date().toISOString();
+    const contributorMeta = {
       login: viewer.login,
       htmlUrl: viewer.html_url,
-    });
+    };
+
+    const filePath = `narratives/${v.anchorId}-${shortId}.md`;
+    const fileBody = buildFileBody(v, generatedAt, contributorMeta);
     await putFile(
       token,
       viewer.login,
@@ -202,6 +246,20 @@ export async function POST(request: Request) {
       `add narrative for ${v.anchorId} (${v.audience}/${v.voice})`,
       fileBody,
     );
+
+    const sidecarPath = `narratives/${v.anchorId}-${shortId}.bundle.json`;
+    const sidecarBody = buildSidecarJson(v, generatedAt, contributorMeta);
+    if (sidecarBody) {
+      await putFile(
+        token,
+        viewer.login,
+        env.repoName,
+        sidecarPath,
+        branch,
+        `add bundle sidecar for ${v.anchorId}`,
+        sidecarBody,
+      );
+    }
 
     const compareUrl = buildCompareUrl({
       upstreamOwner: env.repoOwner,
@@ -213,7 +271,13 @@ export async function POST(request: Request) {
       body: buildPrBody(v, viewer.login),
     });
 
-    return NextResponse.json({ compareUrl, shortId, filePath, branch });
+    return NextResponse.json({
+      compareUrl,
+      shortId,
+      filePath,
+      sidecarPath: sidecarBody ? sidecarPath : undefined,
+      branch,
+    });
   } catch (err) {
     if (err instanceof AuthExpiredError) {
       await clearTokenCookie();
@@ -266,5 +330,7 @@ function buildPrBody(v: ValidatedInput, login: string): string {
     `- contributor: @${login}`,
     "",
     "Provenance is recorded in the file's YAML frontmatter.",
+    "",
+    "A `.bundle.json` sidecar is committed alongside the narrative — it snapshots the exact set of graph nodes and edges the model was given as context.",
   ].join("\n");
 }

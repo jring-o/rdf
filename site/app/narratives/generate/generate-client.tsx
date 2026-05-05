@@ -1,16 +1,13 @@
 "use client";
 
 import * as React from "react";
-import Link from "next/link";
-import { ChevronDown, ChevronRight, GitPullRequest, Loader2, Sparkles, Square } from "lucide-react";
+import { GitPullRequest, Loader2, Sparkles, Square } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
-import { GraphViewClient } from "@/components/graph-view-loader";
+import { BundleSummary, type BundleSummaryData } from "@/components/bundle-summary";
 import { MarkdownProse } from "@/components/markdown-prose";
-import { NodeBadge } from "@/components/node-badge";
 import { cn } from "@/lib/utils";
-import type { EdgeType, NodeType } from "@/lib/types";
-import { NODE_TYPES } from "@/lib/types";
+import type { NodeType } from "@/lib/types";
 
 interface NodeOption {
   id: string;
@@ -90,9 +87,9 @@ const AUDIENCES: ReadonlyArray<{ value: Audience; label: string; hint: string }>
 ];
 
 const LENGTHS: ReadonlyArray<{ value: Length; label: string; hint: string }> = [
-  { value: "short", label: "Short", hint: "~250–400 words" },
-  { value: "medium", label: "Medium", hint: "~600–900 words" },
-  { value: "long", label: "Long", hint: "~1.2k–1.8k words" },
+  { value: "short", label: "Short", hint: "2–3 paragraphs · ~350 words" },
+  { value: "medium", label: "Medium", hint: "4–7 paragraphs · ~750 words" },
+  { value: "long", label: "Long", hint: "8–14 paragraphs · ~1.5k words" },
 ];
 
 const VOICES: ReadonlyArray<{ value: Voice; label: string; hint: string }> = [
@@ -174,6 +171,18 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
   const [error, setError] = React.useState<string | null>(null);
   const [submitting, setSubmitting] = React.useState(false);
   const [bundleData, setBundleData] = React.useState<BundleData | null>(null);
+  const summaryData = React.useMemo<BundleSummaryData | null>(() => {
+    if (!bundleData) return null;
+    return {
+      anchor: bundleData.anchor,
+      nodes: bundleData.nodes,
+      edges: bundleData.edges,
+      strategyLabel:
+        bundleData.strategy === "semantic"
+          ? `semantic walk · q-overlap = ${bundleData.qOverlap ?? 2}`
+          : `${bundleData.depth ?? 1}-hop walk`,
+    };
+  }, [bundleData]);
   const abortRef = React.useRef<AbortController | null>(null);
 
   const matched = nodes.find((n) => n.id === anchorId.trim());
@@ -528,7 +537,7 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
         )}
         {(output || streaming) && (
           <div className="space-y-6">
-            {bundleData && <BundleSummary data={bundleData} />}
+            {summaryData && <BundleSummary data={summaryData} />}
             <div>
               {streaming && (
                 <p className="mb-4 font-mono text-xs uppercase tracking-[0.15em] text-primary">
@@ -605,146 +614,3 @@ function ChipGroup<T extends string | number>({
   );
 }
 
-const TYPE_ORDER: NodeType[] = ["question", "method", "claim", "evidence", "source"];
-
-const BundleSummary = React.memo(function BundleSummary({
-  data,
-}: {
-  data: BundleData;
-}) {
-  const [open, setOpen] = React.useState(true);
-
-  // Memoize the prop arrays for the force-graph viz so its internal effects
-  // don't see new references on each parent re-render (which happens on every
-  // streamed chunk of the narrative output) — without this the layout refits
-  // mid-stream and stutters.
-  const graphNodes = React.useMemo(
-    () =>
-      data.nodes.map((n) => ({
-        id: n.id,
-        type: n.type,
-        title: n.title,
-        isAnchor: n.isAnchor,
-      })),
-    [data.nodes],
-  );
-  const graphEdges = React.useMemo(
-    () =>
-      data.edges.map((e) => ({
-        from: e.from,
-        to: e.to,
-        edge: e.edge as EdgeType,
-      })),
-    [data.edges],
-  );
-
-  const grouped = React.useMemo(() => {
-    const map = new Map<NodeType, BundleNode[]>();
-    for (const t of NODE_TYPES) map.set(t, []);
-    for (const n of data.nodes) {
-      const list = map.get(n.type);
-      if (list) list.push(n);
-    }
-    for (const list of map.values()) {
-      list.sort((a, b) => {
-        if (a.isAnchor !== b.isAnchor) return a.isAnchor ? -1 : 1;
-        return a.id.localeCompare(b.id);
-      });
-    }
-    return map;
-  }, [data.nodes]);
-
-  const strategyLabel =
-    data.strategy === "semantic"
-      ? `semantic walk · q-overlap = ${data.qOverlap ?? 2}`
-      : `${data.depth ?? 1}-hop walk`;
-
-  return (
-    <section className="rounded-lg border border-border bg-card/50">
-      <button
-        type="button"
-        onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between gap-2 px-4 py-3 text-left"
-        aria-expanded={open}
-      >
-        <span className="space-y-0.5">
-          <span className="block font-sans text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            Bundle
-          </span>
-          <span className="block text-sm">
-            <span className="font-mono text-primary">{data.anchor}</span>
-            <span className="text-muted-foreground">
-              {" · "}
-              {data.nodes.length} node{data.nodes.length === 1 ? "" : "s"},{" "}
-              {data.edges.length} edge{data.edges.length === 1 ? "" : "s"}
-              {" · "}
-              {strategyLabel}
-            </span>
-          </span>
-        </span>
-        {open ? (
-          <ChevronDown className="h-4 w-4 shrink-0 text-muted-foreground" />
-        ) : (
-          <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
-        )}
-      </button>
-      {open && (
-        <div className="space-y-4 border-t border-border px-4 py-4">
-          <div className="overflow-hidden rounded-md border border-border">
-            <GraphViewClient
-              nodes={graphNodes}
-              edges={graphEdges}
-              layout="concentric"
-              anchorId={data.anchor}
-              height={420}
-              openLinksInNewTab
-            />
-          </div>
-          <p className="text-[11px] text-muted-foreground">
-            These are the nodes the model was given as context. Scroll the
-            graph to zoom, drag to pan, click any node — chip or graph — to
-            open it in a new tab.
-          </p>
-          {TYPE_ORDER.map((t) => {
-            const list = grouped.get(t) ?? [];
-            if (list.length === 0) return null;
-            return (
-              <div key={t} className="space-y-1.5">
-                <div className="flex items-baseline gap-2">
-                  <NodeBadge type={t} size="sm" />
-                  <span className="font-sans text-[11px] text-muted-foreground">
-                    {list.length}
-                  </span>
-                </div>
-                <div className="flex flex-wrap gap-1.5">
-                  {list.map((n) => (
-                    <Link
-                      key={n.id}
-                      href={`/node/${n.id}`}
-                      target="_blank"
-                      rel="noopener"
-                      title={n.title}
-                      className={cn(
-                        "max-w-full truncate rounded-md border px-2 py-1 font-mono text-[11px] transition-colors",
-                        n.isAnchor
-                          ? "border-primary bg-primary/10 text-primary"
-                          : "border-border bg-background hover:border-primary/50 hover:bg-accent",
-                      )}
-                    >
-                      {n.id}
-                      {n.isAnchor && (
-                        <span className="ml-1 text-[9px] uppercase tracking-wider opacity-70">
-                          anchor
-                        </span>
-                      )}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            );
-          })}
-        </div>
-      )}
-    </section>
-  );
-});

@@ -42,6 +42,33 @@ export interface NarrativeFrontmatter {
   canonical?: boolean;
 }
 
+export interface NarrativeBundleSidecarNode {
+  id: string;
+  type: string;
+  title: string;
+  isAnchor: boolean;
+  depth: number;
+}
+
+export interface NarrativeBundleSidecarEdge {
+  from: string;
+  to: string;
+  edge: string;
+}
+
+export interface NarrativeBundleSidecar {
+  anchor: string;
+  bundle?: string;
+  breadth?: string;
+  generatedAt?: string;
+  generatedBy?: string;
+  model?: string;
+  contributor?: string;
+  contributorUrl?: string;
+  nodes: NarrativeBundleSidecarNode[];
+  edges: NarrativeBundleSidecarEdge[];
+}
+
 export interface Narrative {
   /** Anchor node ID, e.g. "Q-0003" */
   anchorId: string;
@@ -55,6 +82,8 @@ export interface Narrative {
   /** Original raw file contents (frontmatter included) */
   raw: string;
   frontmatter: NarrativeFrontmatter;
+  /** Sidecar bundle data when {anchor}-{shortId}.bundle.json exists. */
+  sidecar?: NarrativeBundleSidecar;
 }
 
 let paperCache: Paper | null = null;
@@ -193,6 +222,14 @@ export async function listNarratives(): Promise<Narrative[]> {
     const frontmatter = parseNarrativeFrontmatter(
       parsed.data as Record<string, unknown>,
     );
+    const sidecarPath = path.join(NARRATIVE_DIR, `${m[1]}-${m[2]}.bundle.json`);
+    let sidecar: NarrativeBundleSidecar | undefined;
+    try {
+      const sidecarRaw = await fs.readFile(sidecarPath, "utf-8");
+      sidecar = JSON.parse(sidecarRaw) as NarrativeBundleSidecar;
+    } catch (err) {
+      if ((err as NodeJS.ErrnoException).code !== "ENOENT") throw err;
+    }
     out.push({
       anchorId: m[1],
       shortId: m[2],
@@ -201,6 +238,7 @@ export async function listNarratives(): Promise<Narrative[]> {
       body: parsed.content.trim(),
       raw,
       frontmatter,
+      sidecar,
     });
   }
   out.sort((a, b) => {

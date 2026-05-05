@@ -1,10 +1,9 @@
-import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowLeft } from "lucide-react";
 
 import { loadGraph, getAllNodeIds } from "@/lib/graph";
 import { buildBundle } from "@/lib/bundle";
-import { GraphViewClient } from "@/components/graph-view-loader";
+import { BundleExplorer } from "@/components/bundle-explorer";
 import { GraphLegend } from "@/components/graph-legend";
 import { NodeBadge } from "@/components/node-badge";
 import { LinkButton } from "@/components/link-button";
@@ -39,10 +38,6 @@ export default async function BundlePage({
   if (!bundle) notFound();
   const node = graph.nodes.get(id)!;
 
-  const sortedNodes = bundle.nodes
-    .filter((n) => !n.isAnchor)
-    .sort((a, b) => a.id.localeCompare(b.id));
-
   const enrichedBundleNodes = bundle.nodes.map((n) => {
     const full = graph.nodes.get(n.id);
     return {
@@ -72,62 +67,25 @@ export default async function BundlePage({
           Bundle around <span className="text-primary">{node.title}</span>
         </h1>
         <p className="text-muted-foreground">
-          Depth-1 expansion: the anchor plus every node it directly points to
-          or is pointed at. This is the bundle composed around this node when
-          generating a narrative. {bundle.nodes.length} nodes,{" "}
-          {bundle.edges.length} edges.
+          The anchor plus every node it directly points to or is pointed at.
+          Use the &ldquo;+1 hop&rdquo; button to expand outward — each click
+          adds the next ring of neighbors. This is the bundle composed around
+          this node when generating a narrative.
         </p>
       </header>
 
       <Separator className="my-8" />
 
-      <div className="grid gap-6 lg:grid-cols-[180px_minmax(0,1fr)_220px]">
+      <div className="grid gap-6 lg:grid-cols-[180px_minmax(0,1fr)]">
         <aside className="lg:sticky lg:top-20 self-start">
           <GraphLegend />
         </aside>
-        <div>
-          <GraphViewClient
-            nodes={enrichedBundleNodes}
-            edges={bundle.edges}
-            layout="concentric"
-            anchorId={node.id}
-            height={620}
-          />
-          <p className="mt-3 text-xs text-muted-foreground font-sans">
-            Tip: scroll to zoom · drag to pan · click a node to open it.
-          </p>
-        </div>
-        <aside className="self-start">
-          <p className="mb-3 font-sans text-xs font-semibold uppercase tracking-wider text-muted-foreground">
-            In this bundle
-          </p>
-          <ul className="space-y-1 text-sm">
-            <li className="rounded bg-primary/10 px-2 py-1">
-              <Link
-                href={`/node/${node.id}`}
-                className="flex items-baseline gap-2 font-mono text-xs text-primary"
-              >
-                <span>{node.id}</span>
-                <span className="truncate font-sans text-foreground">
-                  {node.title}
-                </span>
-              </Link>
-            </li>
-            {sortedNodes.map((n) => (
-              <li key={n.id}>
-                <Link
-                  href={`/node/${n.id}`}
-                  className="flex items-baseline gap-2 rounded px-2 py-1 hover:bg-accent/50"
-                >
-                  <span className="font-mono text-[11px] text-muted-foreground shrink-0">
-                    {n.id}
-                  </span>
-                  <span className="truncate text-xs">{n.title}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        </aside>
+        <BundleExplorer
+          anchorId={node.id}
+          initialNodes={enrichedBundleNodes}
+          initialEdges={bundle.edges}
+          initialDepth={1}
+        />
       </div>
     </div>
   );

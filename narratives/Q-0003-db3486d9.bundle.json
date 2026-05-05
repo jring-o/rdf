@@ -1,0 +1,5129 @@
+{
+  "anchor": "Q-0003",
+  "bundle": "semantic",
+  "breadth": "wide",
+  "generatedAt": "2026-05-05T14:10:36.383Z",
+  "generatedBy": "web",
+  "model": "mistralai/mistral-large (with google/gemini-2.5-flash, google/gemini-2.5-flash-lite fallbacks)",
+  "contributor": "jring-o",
+  "contributorUrl": "https://github.com/jring-o",
+  "nodes": [
+    {
+      "id": "Q-0003",
+      "type": "question",
+      "title": "What does research data loss cost institutions and science?",
+      "isAnchor": true,
+      "depth": 0
+    },
+    {
+      "id": "Q-0001",
+      "type": "question",
+      "title": "Is research data loss architectural or operational?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0010",
+      "type": "question",
+      "title": "What is the per-dataset liability summed across an institution's annual publication output?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0024",
+      "type": "question",
+      "title": "What is the downstream signature of research data loss in the published record?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0025",
+      "type": "question",
+      "title": "How is the scholarly record itself decaying through reference rot?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0009",
+      "type": "question",
+      "title": "What is the institutional liability carried on a single dataset that cannot be produced on request?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0005",
+      "type": "question",
+      "title": "What architecture produces verification evidence as a byproduct of operation?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0026",
+      "type": "question",
+      "title": "What loads the conditions under which the latent §5 liability surfaces as realized cost?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0027",
+      "type": "question",
+      "title": "What costs accrue continuously regardless of whether the latent liability is surfaced?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0004",
+      "type": "question",
+      "title": "What is the economic cost structure of preservation across architectural tiers?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0028",
+      "type": "question",
+      "title": "Is the asymmetry between liability and prevention cost large enough to bind without timing assumptions?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0002",
+      "type": "question",
+      "title": "Under what architectural conditions does research data survive long horizons?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0020",
+      "type": "question",
+      "title": "How does personnel turnover function as a preservation event for research data?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0022",
+      "type": "question",
+      "title": "How does grant termination convert to data-maintenance termination?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0023",
+      "type": "question",
+      "title": "How do platforms discontinue, restrict access, or become unaffordable on timelines researchers do not control?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0019",
+      "type": "question",
+      "title": "What structural property is shared across the documented loss mechanisms?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0035",
+      "type": "question",
+      "title": "Why is the compliance gap structural rather than behavioral?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0036",
+      "type": "question",
+      "title": "Does content addressing change the evidentiary status of \"my data is lost\" misconduct claims?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0013",
+      "type": "question",
+      "title": "What is the marginal cost of adding Tier 3 protocol participation to existing institutional infrastructure?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0012",
+      "type": "question",
+      "title": "What does Tier 2 coordinated preservation cost, and what conditions make it sustainable?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0032",
+      "type": "question",
+      "title": "What pattern distinguishes Tier 2 consortia that survive from those that don't?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0014",
+      "type": "question",
+      "title": "What is the documented return on investment for research data infrastructure across studies?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0033",
+      "type": "question",
+      "title": "How does sensitive data participate in Tier 3 architecture without exposure?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0034",
+      "type": "question",
+      "title": "What does open access multiply about preserved-data ROI?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0011",
+      "type": "question",
+      "title": "What does Tier 1 hosted storage cost per dataset, and what fails it?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0008",
+      "type": "question",
+      "title": "What concrete actions should institutions, funders, and researchers take?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0029",
+      "type": "question",
+      "title": "What is the demonstrated ceiling of coordinated preservation, and where does it stop?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0021",
+      "type": "question",
+      "title": "When do ordinary physical and technical events become preservation events?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0030",
+      "type": "question",
+      "title": "What three operational forms does Tier 2 fragility take?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0031",
+      "type": "question",
+      "title": "What architecture would close the coverage gap to the 73-93% sitting outside Tier 2?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0015",
+      "type": "question",
+      "title": "What should research institutions do to deploy resilient data architecture?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0016",
+      "type": "question",
+      "title": "What should funders do to align incentives with verifiable preservation?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0017",
+      "type": "question",
+      "title": "What should individual researchers do as standard laboratory practice?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "Q-0018",
+      "type": "question",
+      "title": "What should the working group do to lower adoption costs of the other recommendations?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0002",
+      "type": "claim",
+      "title": "73 to 93 percent of published research cannot produce its underlying data on request",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0005",
+      "type": "claim",
+      "title": "A representative R1 carries ~$1.1B/year in unverifiable research output as latent liability",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0022",
+      "type": "claim",
+      "title": "Reproducibility failure is the downstream signature of data loss",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0023",
+      "type": "claim",
+      "title": "The scholarly record itself is decaying through reference rot",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0024",
+      "type": "claim",
+      "title": "Per-paper liability application — Agh 2009 yields $725K-$1.88M with effectively-infinite B",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0025",
+      "type": "claim",
+      "title": "Three independent vectors are converging on programmatic verification of research data compliance",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0026",
+      "type": "claim",
+      "title": "Faculty flight and failed recruiting compound continuously, independent of liability surfacing",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0027",
+      "type": "claim",
+      "title": "The institutional position is an unhedged billion-dollar tail exposure against a rounding-error fix",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0048",
+      "type": "claim",
+      "title": "FOIA and disclosure regimes can surface architectural data unavailability without an enforcement action",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0001",
+      "type": "claim",
+      "title": "Research data loss is architectural, not operational",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0017",
+      "type": "claim",
+      "title": "Personnel turnover is a structural preservation event for research data",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0019",
+      "type": "claim",
+      "title": "Grant termination terminates data maintenance",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0020",
+      "type": "claim",
+      "title": "Platforms discontinue or restrict access on timelines researchers do not control",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0021",
+      "type": "claim",
+      "title": "Every loss mode reduces to single-copy dependency",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0053",
+      "type": "claim",
+      "title": "Documented losses persist at institutions where standard preservation policy is in place",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0003",
+      "type": "claim",
+      "title": "Funder mandates are shifting from self-reported plans to programmatic verification",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0007",
+      "type": "claim",
+      "title": "Tier 3 is the only architecture that generates verifiable compliance evidence as a byproduct",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0033",
+      "type": "claim",
+      "title": "Data management plans and infrastructure are structurally disconnected",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0034",
+      "type": "claim",
+      "title": "Content addressing makes \"my data is lost\" a testable rather than unfalsifiable defense",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0006",
+      "type": "claim",
+      "title": "Marginal cost of adding Tier 3 to existing institutional infrastructure is effectively zero",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0030",
+      "type": "claim",
+      "title": "Tier 2 economics produce the surviving-consortia pattern",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0031",
+      "type": "claim",
+      "title": "ROI on research data infrastructure is positive in every documented study, ranging 5x to 800x",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0032",
+      "type": "claim",
+      "title": "Open access multiplies the return on preserved data infrastructure",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0050",
+      "type": "claim",
+      "title": "Tier 1 cost-affordability is deceptive — a single surfacing event exceeds a century of repository fees",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0047",
+      "type": "claim",
+      "title": "The most expensive data infrastructure is the infrastructure built after the disaster",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0004",
+      "type": "claim",
+      "title": "Tier 2 coordinated preservation works but does not extend to most research",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0009",
+      "type": "claim",
+      "title": "Three architectural properties jointly determine long-horizon survival",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0010",
+      "type": "claim",
+      "title": "Tier 0 produces the documented year-over-year decline in dataset survival by default",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0011",
+      "type": "claim",
+      "title": "Tier 1 is one organizational decision away from the same outcome as Tier 0",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0012",
+      "type": "claim",
+      "title": "Tier 2 redundancy is contingent on continued coordination of 3-4 organizations",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0013",
+      "type": "claim",
+      "title": "Tier 3 produces redundancy as a structural byproduct of use",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0014",
+      "type": "claim",
+      "title": "Content addressing operates on any byte sequence regardless of semantics",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0015",
+      "type": "claim",
+      "title": "Permissioned Tier 3 configurations restrict access while preserving redundancy and integrity",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0016",
+      "type": "claim",
+      "title": "Architectural tier is determined by the deployment, not by the underlying software",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0018",
+      "type": "claim",
+      "title": "Single-domain backups are not backups",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0028",
+      "type": "claim",
+      "title": "Tier 2 fragility takes three operational forms",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0029",
+      "type": "claim",
+      "title": "Coverage extension to the 73-93% requires architecture below domain-specific governance",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0049",
+      "type": "claim",
+      "title": "Domain-specific Tier 2 carries hidden fragility — bespoke = smaller community = SPOF in resilience disguise",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0040",
+      "type": "claim",
+      "title": "R1 — Conduct an architectural audit of existing data infrastructure",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0041",
+      "type": "claim",
+      "title": "R2 — Deploy at least one protocol-level preservation node",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0042",
+      "type": "claim",
+      "title": "R3 — Integrate compliance evidence generation into the data deposit workflow",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0043",
+      "type": "claim",
+      "title": "R4 — Funders should require verifiable evidence of preservation, not self-reported plans",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0044",
+      "type": "claim",
+      "title": "R5 — Fund preservation through facilities and administrative cost recovery",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0045",
+      "type": "claim",
+      "title": "R6 — Maintain local clones and content-addressed copies of all research data",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0046",
+      "type": "claim",
+      "title": "R7 — Publish reference deployments, audit templates, and cost models",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0001",
+      "type": "evidence",
+      "title": "Vines 2014 — 19% of 516 ecology dataset requests delivered",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0001",
+      "type": "source",
+      "title": "Vines et al. 2014 — The Availability of Research Data Declines Rapidly with Article Age",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0002",
+      "type": "evidence",
+      "title": "Gabelica 2022 — 93% non-compliance among 1,792 biomedical authors who had committed to share",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0002",
+      "type": "source",
+      "title": "Gabelica et al. 2022 — Many researchers were not compliant with their published data sharing statement",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0003",
+      "type": "evidence",
+      "title": "Wicherts 2006 — 73% non-compliance, 141 APA psychology papers",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0003",
+      "type": "source",
+      "title": "Wicherts et al. 2006 — The poor availability of psychological research data for reanalysis",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0004",
+      "type": "evidence",
+      "title": "Acciai 2023 — 86% non-sharing, 1,634 PNAS and Nature-portfolio papers from 2017-2021",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0004",
+      "type": "source",
+      "title": "Acciai, Schneider & Nielsen 2023 — Estimating social bias in data sharing behaviours",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0005",
+      "type": "evidence",
+      "title": "Conditional dataset survival decays ~17% per year after publication",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0006",
+      "type": "evidence",
+      "title": "191 research data repositories shut down 2012-2023; median age 12; 47% no migration",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0005",
+      "type": "source",
+      "title": "Strecker et al. 2023 — Disappearing repositories",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0007",
+      "type": "evidence",
+      "title": "U.S. preclinical research consumes ~$28B/year on irreproducible work",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0009",
+      "type": "source",
+      "title": "Freedman, Cockburn & Simcoe 2015 — The Economics of Reproducibility in Preclinical Research",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "M-0003",
+      "type": "method",
+      "title": "The Four-Term Liability Formula (A + B + C + D)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0036",
+      "type": "evidence",
+      "title": "Stern et al. 2014 — NIH-funded retracted papers carry $392,582 mean attributable cost",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0050",
+      "type": "source",
+      "title": "Stern, Casadevall, Steen & Fang 2014 — Financial costs of NIH retractions",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0041",
+      "type": "evidence",
+      "title": "Duke University $112.5M FCA settlement (March 2019) — largest university FCA payment",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0065",
+      "type": "source",
+      "title": "Duke / Potts-Kant $112.5M FCA settlement (March 2019)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0042",
+      "type": "evidence",
+      "title": "Harvard-Brigham/Anversa $10M FCA settlement (April 2017) — 31 retractions",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0064",
+      "type": "source",
+      "title": "Harvard / Brigham / Anversa $10M FCA settlement (April 2017)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0085",
+      "type": "evidence",
+      "title": "U.S. academic R&D ~$108.8B FY2023 across 914 institutions; top 30 capture 42%",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0061",
+      "type": "source",
+      "title": "NCSES HERD FY2023 + 2025 Carnegie classification",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0086",
+      "type": "evidence",
+      "title": "Mid-sized R1 reference profile — ~$200M R&D, 1,000-1,500 TT faculty, ~3,000 publications/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0062",
+      "type": "source",
+      "title": "R1 faculty-and-publication scaling reference",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0087",
+      "type": "evidence",
+      "title": "NIDDK extramural human-subjects share ~40% sustained FY2014-FY2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0063",
+      "type": "source",
+      "title": "NIDDK extramural human-subjects share FY2014-FY2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0088",
+      "type": "evidence",
+      "title": "2025 Carnegie R1 threshold — $50M R&D and 70 doctorates; 187 institutions designated",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0110",
+      "type": "source",
+      "title": "Carnegie 2025 R1 threshold — $50M R&D, 70 doctorates",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0110",
+      "type": "evidence",
+      "title": "Colavizza 2020 — papers with data-availability links to repository data receive up to 25.36% more citations",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0059",
+      "type": "source",
+      "title": "Colavizza et al. 2020 — Open-data citation advantage in PLOS+BMC corpus",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0112",
+      "type": "evidence",
+      "title": "Piwowar & Vision 2013 — 9% open-data citation advantage; ~150 reuse papers per 100 deposited datasets",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0055",
+      "type": "source",
+      "title": "Piwowar & Vision 2013 — Open data and citation/reuse advantage",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0114",
+      "type": "evidence",
+      "title": "Piwowar & Vision 2013 — 9% open-data citation advantage; 150 reuse papers per 100 deposited datasets in 5 years",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0033",
+      "type": "evidence",
+      "title": "Nature survey of 1,576 researchers — >70% failed to reproduce others' experiments",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0047",
+      "type": "source",
+      "title": "Nature reproducibility survey 2016 (Baker)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0034",
+      "type": "evidence",
+      "title": "Amgen — 11% replication success of 53 landmark cancer biology studies",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0048",
+      "type": "source",
+      "title": "Begley & Ellis 2012 — Amgen replication of cancer biology",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0035",
+      "type": "evidence",
+      "title": "Molecular Brain — 97% of authors couldn't produce raw data; 21 papers withdrawn",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0049",
+      "type": "source",
+      "title": "Miyakawa 2020 — Molecular Brain editor's raw data audit",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0037",
+      "type": "evidence",
+      "title": "74% of published R analysis files fail to execute without error",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0051",
+      "type": "source",
+      "title": "Trisovic et al. 2022 — Reproducibility of computational research code",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0038",
+      "type": "evidence",
+      "title": "Pew Research — 25% of webpages 2013-2023 are gone; 38% at 10 years",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0052",
+      "type": "source",
+      "title": "Pew Research Center 2024 — Web decay",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0039",
+      "type": "evidence",
+      "title": "One in five scientific articles suffers reference rot; 7-in-10 web-citing have compromised context",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0053",
+      "type": "source",
+      "title": "Klein et al. 2014 — Scholarly Context Not Found",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0040",
+      "type": "evidence",
+      "title": "Harvard Law Review — >70% of URL citations 1996-2012 no longer resolve",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0054",
+      "type": "source",
+      "title": "Zittrain, Albert & Lessig 2014 — Perma.cc / link rot in legal scholarship",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0014",
+      "type": "evidence",
+      "title": "Agh 2009 Artemia — laptop theft destroyed only copy of irreplaceable dataset",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0056",
+      "type": "source",
+      "title": "Agh et al. 2009 — Iranian Artemia morphometric and genetic characterization",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0057",
+      "type": "source",
+      "title": "CORDIS — EU ICA4-CT-2001-10020 award record (Artemia INCO-DEV)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0058",
+      "type": "source",
+      "title": "Urmia Lake collapse documentation",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0111",
+      "type": "evidence",
+      "title": "Asem et al. 2019 — >90% A. urmiana population loss 1994-2004 with associated genetic erosion",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0060",
+      "type": "source",
+      "title": "Asem et al. 2019 — Post-collapse genetics of Artemia urmiana",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0043",
+      "type": "evidence",
+      "title": "Dana-Farber $15M FCA settlement (December 2025) — most recent precedent",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0066",
+      "type": "source",
+      "title": "Dana-Farber $15M FCA settlement (December 2025)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0044",
+      "type": "evidence",
+      "title": "NIH DMS Policy effective Jan 2023 + simpler standardized format effective May 2026",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0067",
+      "type": "source",
+      "title": "NIH Data Management and Sharing Policy (NOT-OD-21-013)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0045",
+      "type": "evidence",
+      "title": "Gates Foundation contracted OA.Works for programmatic compliance review (Jan 2025)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0068",
+      "type": "source",
+      "title": "Gates Foundation OA.Works programmatic compliance (Jan 2025)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0046",
+      "type": "evidence",
+      "title": "Adjacent industries already cross verification threshold — SEC, HIPAA, FDA Part 11",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0073",
+      "type": "source",
+      "title": "SEC Rule 17a-4 records retention requirements",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0074",
+      "type": "source",
+      "title": "SEC/CFTC/FINRA $3.5B+ in records-related fines since 2021",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0075",
+      "type": "source",
+      "title": "HIPAA Security Rule penalties",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0076",
+      "type": "source",
+      "title": "21 CFR Part 11 + Applied Therapeutics rejection",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0077",
+      "type": "source",
+      "title": "Financial-sector cybersecurity IT-budget allocation",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0048",
+      "type": "evidence",
+      "title": "8% declared, 2% actual — 2.1M-article compliance gap",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0084",
+      "type": "source",
+      "title": "8% declared / 2% actual data availability across 2.1M articles",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0089",
+      "type": "evidence",
+      "title": "Horizon Europe — FAIR data mandatory, no opt-out; Article 17 ties compliance to payments",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0069",
+      "type": "source",
+      "title": "Horizon Europe FAIR data mandate, Grant Agreement Article 17",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0090",
+      "type": "evidence",
+      "title": "Wellcome Trust — may decline new applications from non-compliant researchers; may suspend institutional funding",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0070",
+      "type": "source",
+      "title": "Wellcome Trust compliance framework",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0091",
+      "type": "evidence",
+      "title": "NSF — proposals submitted without a Data Management Plan are returned without review",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0071",
+      "type": "source",
+      "title": "NSF DMP requirement — proposals returned without review",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0092",
+      "type": "evidence",
+      "title": "OSTP Nelson Memo (Aug 2022) — immediate open access to federally funded research and data; >$90B/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0072",
+      "type": "source",
+      "title": "OSTP Nelson Memo (August 2022)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0093",
+      "type": "evidence",
+      "title": "NSPM-33 implementation — research-integrity disclosure as the procedural template for verifiable evidence",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0117",
+      "type": "source",
+      "title": "NSPM-33 implementation guidance — research integrity / COI disclosure",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0047",
+      "type": "evidence",
+      "title": "Nature 2025 poll — 75% of US researchers considering leaving the country",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0078",
+      "type": "source",
+      "title": "Nature 2025 reader poll + Choose Europe for Science",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0106",
+      "type": "evidence",
+      "title": "Choose Europe for Science — €500M launched May 2025, expanded to ~€900M; recruiting US researchers",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0107",
+      "type": "evidence",
+      "title": "Only 44% of U.S. faculty report adequate institutional IT support for grant-funded projects",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0079",
+      "type": "source",
+      "title": "44% of US faculty report adequate institutional IT support",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "M-0004",
+      "type": "method",
+      "title": "The 1:10:100 Cost Heuristic (Labovitz & Chang)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0039",
+      "type": "claim",
+      "title": "Institutions that deploy Tier 3 in 2026 hold three positions simultaneously",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "M-0001",
+      "type": "method",
+      "title": "The Four-Tier Architectural Taxonomy",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "M-0005",
+      "type": "method",
+      "title": "The Failure-Mode Taxonomy",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0008",
+      "type": "claim",
+      "title": "Tier 3 produces the AI-ready data substrate as a structural byproduct of preservation",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0035",
+      "type": "claim",
+      "title": "Universal coverage becomes possible at Tier 3",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0036",
+      "type": "claim",
+      "title": "Preservation horizon decouples from project budget",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0037",
+      "type": "claim",
+      "title": "Reanalysis becomes a first-class research activity",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0051",
+      "type": "claim",
+      "title": "Verification shifts from forensic reconstruction to inspection query under Tier 3",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "C-0052",
+      "type": "claim",
+      "title": "Useful life of preserved data extends to horizon of scientific interest under Tier 3",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0011",
+      "type": "evidence",
+      "title": "Median PhD time 7.3 years; postdoc avg 4.5 years; 15-23% tenure-track placement",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0026",
+      "type": "source",
+      "title": "Researcher career timelines (NCSES SED 2023, CGS 2008, Kahn & Ginther 2017, Woolston 2020)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0012",
+      "type": "evidence",
+      "title": "65% of popular GitHub projects have bus factor ≤ 2",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0027",
+      "type": "source",
+      "title": "Avelino et al. 2016 — Truck factor analysis of 133 GitHub projects",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0013",
+      "type": "evidence",
+      "title": "HLRS Stuttgart — 57 of 262 user accounts de-registered, ~619 TB orphaned",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0028",
+      "type": "source",
+      "title": "Schembera & Durán 2020 — Dark Data at HLRS Stuttgart",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0017",
+      "type": "evidence",
+      "title": "NIH 2,291 grants ($2.45B) and NSF 1,752 grants ($1.4B) terminated Feb-Aug 2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0031",
+      "type": "source",
+      "title": "NIH/NSF 2025 grant terminations",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0018",
+      "type": "evidence",
+      "title": "NOAA Billion-Dollar Disasters database stopped updating; Mauna Loa CO₂ record proposed for defunding",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0032",
+      "type": "source",
+      "title": "NOAA Billion-Dollar Disasters retirement + Mauna Loa defunding proposal",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0019",
+      "type": "evidence",
+      "title": "~3,400 datasets removed from Data.gov and 14 NOAA datasets decommissioned by Feb 2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0033",
+      "type": "source",
+      "title": "Data.gov dataset removals 2025 (EDGI, Data Rescue Project, Harvard LIL)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0020",
+      "type": "evidence",
+      "title": "191 of 411 long-term mammal studies terminated; 63-year marmot record cut",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0034",
+      "type": "source",
+      "title": "Blumstein 2025 — The end of long-term ecological data?",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0021",
+      "type": "evidence",
+      "title": "NASA Astronomical Data Center terminated 2002 with no formal successor",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0035",
+      "type": "source",
+      "title": "NASA Astronomical Data Center closure 2002",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0022",
+      "type": "evidence",
+      "title": "UK Arts and Humanities Data Service closed 2008 at 12-year median",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0036",
+      "type": "source",
+      "title": "AHRC AHDS closure decision 2007-2008",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0023",
+      "type": "evidence",
+      "title": "BIIACS social-sciences repository went dark December 2023 despite \"perpetuity\" pledge",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0037",
+      "type": "source",
+      "title": "BIIACS shutdown December 2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0024",
+      "type": "evidence",
+      "title": "Twitter eliminated free academic API Feb 2023; 33,306 studies built on Twitter data",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0038",
+      "type": "source",
+      "title": "Twitter API termination impact analysis",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0025",
+      "type": "evidence",
+      "title": "GISAID suspended researcher accounts in 2023 and revoked Open Access designation",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0039",
+      "type": "source",
+      "title": "GISAID — governance and access controversies",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0026",
+      "type": "evidence",
+      "title": "China National Knowledge Infrastructure cut off foreign subscribers April 2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0040",
+      "type": "source",
+      "title": "CKNI cross-border subscription cutoff April 2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0027",
+      "type": "evidence",
+      "title": "CERN terminated Russia/Belarus cooperation Nov 2024; ~500 scientists expelled",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0041",
+      "type": "source",
+      "title": "CERN ended cooperation with Russian/Belarusian institutions Nov 2024",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0028",
+      "type": "evidence",
+      "title": "UK Biobank moved to metered cloud-only access in 2023-24, ~doubling project costs",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0042",
+      "type": "source",
+      "title": "UK Biobank cloud-only metered access transition",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0029",
+      "type": "evidence",
+      "title": "Elsevier acquired Bepress 2017; >500 universities' OA infrastructure under publisher ownership",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0043",
+      "type": "source",
+      "title": "Elsevier acquisition of Bepress (2017)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0030",
+      "type": "evidence",
+      "title": "Mendeley Desktop EOL 2022; 2018 update lost user PDFs and annotations",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0044",
+      "type": "source",
+      "title": "Mendeley Desktop EOL September 2022 + 2018 update annotation loss",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0031",
+      "type": "evidence",
+      "title": "Academia.edu paywall escalated $99→$498/year; 40% of users in developing nations",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0045",
+      "type": "source",
+      "title": "Academia.edu pricing escalation timeline",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0032",
+      "type": "evidence",
+      "title": "Elsevier and Springer route TDM through gated APIs; institutional contract violations reported",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0046",
+      "type": "source",
+      "title": "Elsevier and Springer Nature publisher-gated TDM APIs",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "M-0002",
+      "type": "method",
+      "title": "Three Architectural Principles",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0010",
+      "type": "evidence",
+      "title": "kernel.org compromised 2011; Linux source not at risk because of distributed Git copies",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0023",
+      "type": "source",
+      "title": "kernel.org compromise 2011 (Corbet, Linux Foundation)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0055",
+      "type": "evidence",
+      "title": "MetaArchive Cooperative sunset 2025; silent under-replication, manual Stanford rebuild",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0096",
+      "type": "source",
+      "title": "MetaArchive Cooperative sunset 2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0063",
+      "type": "evidence",
+      "title": "Smeesters/Erasmus 2014 — \"computer crash\" defense in misconduct case",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0115",
+      "type": "source",
+      "title": "Erasmus University 2012 / 2014 Smeesters report",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0057",
+      "type": "evidence",
+      "title": "Universities running protocol nodes — TU Dortmund, TU Dresden, MIT SIPB, Tor relays at 45+",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0100",
+      "type": "source",
+      "title": "TU Dortmund Fachschaft Informatik Matrix homeserver",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0101",
+      "type": "source",
+      "title": "TU Dresden Matrix for 18,000 users",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0102",
+      "type": "source",
+      "title": "MIT SIPB-operated Mastodon and Forgejo",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0098",
+      "type": "source",
+      "title": "Tor relay requirements + 45+ universities running relays",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0097",
+      "type": "source",
+      "title": "BitTorrent daemon footprint + Academic Torrents",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0058",
+      "type": "evidence",
+      "title": "Protocol-node baseline cost ~$46/yr; protocol-daemon memory footprints near zero",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0080",
+      "type": "source",
+      "title": "Standalone Tier 3 protocol-node hosting costs",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0099",
+      "type": "source",
+      "title": "BitTorrent WebSeed specification",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0073",
+      "type": "evidence",
+      "title": "Server idle capacity — only 40% of data centers measure utilization; 25% of physical servers comatose; 12-18% typical",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0006",
+      "type": "source",
+      "title": "Server utilization studies (Uptime Institute, NRDC, LBNL, Anthesis/Stanford)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0074",
+      "type": "evidence",
+      "title": "Networks run at ~26% average utilization globally; Internet2 maintains 50% headroom by policy",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0007",
+      "type": "source",
+      "title": "TeleGeography State of the Network 2023-2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0075",
+      "type": "evidence",
+      "title": "Internet2 bandwidth contracts are flat-rate; 50% headroom maintained by policy; augment trigger at 40% utilization",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0008",
+      "type": "source",
+      "title": "Internet2 fee model and capacity-augment policy",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0076",
+      "type": "evidence",
+      "title": "Median U.S. higher-ed central IT spend ~$10.6M/yr; compensation ~half, nearly entirely fixed",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0085",
+      "type": "source",
+      "title": "EDUCAUSE Core Data Service — median IT spend ~$10.6M; staffing 8% turnover",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0077",
+      "type": "evidence",
+      "title": "Cabling is 61% of campus networking infrastructure cost; physical plant amortizes over 10-15+ years",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0086",
+      "type": "source",
+      "title": "Higher-ed physical-plant cost amortization + cabling 61% of campus networking",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0078",
+      "type": "evidence",
+      "title": "Hosted institutional repository pricing — DSpaceDirect $4K-$9K/yr; Digital Commons $10K-$12K/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0087",
+      "type": "source",
+      "title": "LYRASIS DSpaceDirect / Digital Commons hosted-repository pricing",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0079",
+      "type": "evidence",
+      "title": "Cloud archival storage — AWS S3 Glacier Deep Archive ~$12/TB/yr; GCS Archive ~$14/TB/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0089",
+      "type": "source",
+      "title": "Cloud archival storage pricing — AWS S3 Glacier, Google Cloud Archive",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0054",
+      "type": "evidence",
+      "title": "Digital Preservation Network dissolved 2018; integrity layer dissolved with coordinator",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0095",
+      "type": "source",
+      "title": "Digital Preservation Network dissolution 2018",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0056",
+      "type": "evidence",
+      "title": "Self-hosted repository costs — 58-96% staff; MIT DSpace ~$260K/yr; Southampton ePrints £116K/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0088",
+      "type": "source",
+      "title": "Self-hosted repository cost analyses (MIT DSpace, Southampton ePrints)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0080",
+      "type": "evidence",
+      "title": "CLOCKSS — $550-$18,350/yr scaled to library budget; 20 years operational",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0014",
+      "type": "source",
+      "title": "CLOCKSS Archive preservation statistics",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0090",
+      "type": "source",
+      "title": "CLOCKSS membership pricing",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0081",
+      "type": "evidence",
+      "title": "LOCKSS Global Network — $2,642-$13,222/yr + ~$700/yr per node; 27 years operational",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0091",
+      "type": "source",
+      "title": "LOCKSS Global Network membership",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0082",
+      "type": "evidence",
+      "title": "HathiTrust — $6,600-$13,000/yr scaled to total library expenditure; 18 years operational",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0092",
+      "type": "source",
+      "title": "HathiTrust membership",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0083",
+      "type": "evidence",
+      "title": "APTrust — $20,000/yr + $420/TB/yr (first 10 TB included)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0093",
+      "type": "source",
+      "title": "APTrust pricing",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0084",
+      "type": "evidence",
+      "title": "Portico — $1,500-$25,462/yr scaled; 1,076 publishers and 1,288 supporting libraries",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0094",
+      "type": "source",
+      "title": "Portico pricing",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0059",
+      "type": "evidence",
+      "title": "EMBL-EBI ROI 20-26x on £50M/yr (£1B-£1.3B annual user value)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0104",
+      "type": "source",
+      "title": "EMBL-EBI economic-impact study (~£50M/yr → £1B-£1.3B/yr)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0060",
+      "type": "evidence",
+      "title": "PDB ROI 800x — $5.5B economic impact / $6.1M federal funding/yr",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0109",
+      "type": "source",
+      "title": "PDB ROI — $5.5B annual impact / $6.1M federal funding",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0065",
+      "type": "evidence",
+      "title": "UK Archaeology Data Service — £13M/yr efficiency gains, ~5:1 return",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0105",
+      "type": "source",
+      "title": "UK Archaeology Data Service — £13M/yr efficiency gains",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0066",
+      "type": "evidence",
+      "title": "Australia NCRIS — $7 returned per $1 invested",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0106",
+      "type": "source",
+      "title": "Australia NCRIS — $7 returned per $1 invested",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0067",
+      "type": "evidence",
+      "title": "XSEDE cyberinfrastructure — $4.7B-$22.7B value on $257.5M; 18:1 to 88:1",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0107",
+      "type": "source",
+      "title": "XSEDE — $4.7B-$22.7B value on $257.5M investment",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0068",
+      "type": "evidence",
+      "title": "Apon et al. — $14.3M HERD per $100K research-computing salary; $1.3M per 100 TFLOPs",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0108",
+      "type": "source",
+      "title": "Apon et al. — $14.3M HERD per $100K research-computing salary",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0108",
+      "type": "evidence",
+      "title": "Purdue research computing — 49x return; 55% of $443.5M FY2020 R&D attributable to RCAC HPC users",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0050",
+      "type": "evidence",
+      "title": "wwPDB — 4 sites, 50+ years, $23B replacement, 100% of 34 cancer drugs 2019-2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0013",
+      "type": "source",
+      "title": "wwPDB — Berman, Henrick & Nakamura 2003 + RCSB economic impact",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0081",
+      "type": "source",
+      "title": "PDB and FDA cancer drug approvals 2019-2023",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0061",
+      "type": "evidence",
+      "title": "Landsat free-access — 53 scenes/day → 5,700/day; $25.6B/yr economic value",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0112",
+      "type": "source",
+      "title": "Landsat — 53/day → 5,700/day; $25.6B/yr economic value",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0062",
+      "type": "evidence",
+      "title": "COVID-19 vaccines — $1.9T BioNTech / $5.2T total enabled by open-genome publication",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0113",
+      "type": "source",
+      "title": "COVID-19 vaccine value — $1.9T BioNTech / $5.2T total",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0069",
+      "type": "evidence",
+      "title": "Human Genome Project — $14.5B federal investment 1988-2012 → $965B economic impact",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0111",
+      "type": "source",
+      "title": "Human Genome Project + genomics — $14.5B → $965B economic impact",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0072",
+      "type": "evidence",
+      "title": "European Commission — minimum €10.2B/yr cost of not having FAIR research data",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0114",
+      "type": "source",
+      "title": "European Commission — €10.2B/yr cost of not having FAIR data",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0105",
+      "type": "evidence",
+      "title": "Westbrook & Burley 2019 — 88% of 210 new FDA molecular entities 2010-2016 facilitated by PDB structures",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0013a",
+      "type": "source",
+      "title": "Westbrook & Burley 2019 — PDB contributions to FDA drug approvals 2010-2016",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0049",
+      "type": "evidence",
+      "title": "INSDC — 53.9 trillion bases across 3 continents, continuously operational since 1980s",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0012",
+      "type": "source",
+      "title": "INSDC — Arita et al. 2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0051",
+      "type": "evidence",
+      "title": "WLCG — 1.5 EB, 170+ sites, 42 countries, 2M+ tasks/day",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0015",
+      "type": "source",
+      "title": "Worldwide LHC Computing Grid (CERN)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0052",
+      "type": "evidence",
+      "title": "NOAA NCEI — 60+ PB across 4 US locations; data confirmed safe after Hurricane Helene 2024",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0082",
+      "type": "source",
+      "title": "NOAA NCEI 60+ PB across 4 sites; Hurricane Helene 2024",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0053",
+      "type": "evidence",
+      "title": "Astronomical archives — STScI/CADC/ESAC 30-year IVOA partnership",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0083",
+      "type": "source",
+      "title": "STScI/CADC/ESAC astronomical archive partnership (IVOA)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0008",
+      "type": "evidence",
+      "title": "Long-running protocol systems have survived multi-decade horizons without organizational continuity",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0016",
+      "type": "source",
+      "title": "DNS scale and reliability metrics",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0017",
+      "type": "source",
+      "title": "SMTP — RFC 821 (1982) and RFC 5321 (2008)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0018",
+      "type": "source",
+      "title": "Email statistics 2026 (Radicati / Statista / EmailToolTester)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0019",
+      "type": "source",
+      "title": "BitTorrent 2 billion installations milestone (2020)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0020",
+      "type": "source",
+      "title": "Internet Archive uses BitTorrent for over 1M items",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0021",
+      "type": "source",
+      "title": "GitHub Octoverse Report 2025 + Git release history",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0022",
+      "type": "source",
+      "title": "Stack Overflow 2024 Developer Survey — 93.87% Git adoption",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0104",
+      "type": "evidence",
+      "title": "Software Heritage — 27B source files from 421M projects under content-addressed Merkle DAG; SWHID is ISO/IEC 18670",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0011",
+      "type": "source",
+      "title": "Software Heritage Activity Report 2025",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0009",
+      "type": "evidence",
+      "title": "GitHub blocked developers in 5 sanctioned regions in July 2019",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0025",
+      "type": "source",
+      "title": "GitHub blocked sanctioned-region developers 2019",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0025a",
+      "type": "source",
+      "title": "GitHub email refusing repository export to sanctioned developer",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0109",
+      "type": "evidence",
+      "title": "GitHub scale — 630 million repositories, 180+ million developers",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0024",
+      "type": "source",
+      "title": "GitHub Octoverse Report 2025 (scale)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0015",
+      "type": "evidence",
+      "title": "Kyoto University December 2021 — buggy backup script deleted 77 TB across 14 research groups",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0029",
+      "type": "source",
+      "title": "Kyoto University IIMC 77TB loss notice (Dec 2021)",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0016",
+      "type": "evidence",
+      "title": "Brazil National Museum fire 2018 — ~18.4M of 20M items destroyed",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0030",
+      "type": "source",
+      "title": "Brazil National Museum fire — Escobar 2018, AHA Perspectives, Smithsonian Magazine",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0113",
+      "type": "evidence",
+      "title": "SARS-CoV-2 genome publicly shared Jan 11 2020 via GISAID; BioNTech Project Lightspeed launched Jan 27 2020",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "E-0094",
+      "type": "evidence",
+      "title": "NASEM 2020 — current research-funding regime is structurally misaligned with multi-decade preservation",
+      "isAnchor": false,
+      "depth": 1
+    },
+    {
+      "id": "S-0116",
+      "type": "source",
+      "title": "NASEM 2020 — Funding system not conducive to data life-cycle cost forecasting",
+      "isAnchor": false,
+      "depth": 1
+    }
+  ],
+  "edges": [
+    {
+      "from": "C-0002",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0002",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0002",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0002",
+      "to": "C-0053",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0005",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0005",
+      "to": "Q-0010",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0005",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0005",
+      "to": "M-0003",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0022",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0022",
+      "to": "Q-0024",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0022",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0023",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0023",
+      "to": "Q-0025",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0023",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0024",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0024",
+      "to": "Q-0009",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0024",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0024",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0024",
+      "to": "M-0003",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0025",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0025",
+      "to": "Q-0005",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0025",
+      "to": "Q-0026",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0025",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0025",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0025",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0026",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0026",
+      "to": "Q-0027",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0026",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0027",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0027",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0027",
+      "to": "Q-0028",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0027",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0027",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0027",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0027",
+      "to": "C-0047",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0027",
+      "to": "M-0003",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0027",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0048",
+      "to": "Q-0003",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0048",
+      "to": "Q-0026",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0048",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0048",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0001",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0001",
+      "to": "C-0040",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0001",
+      "to": "C-0045",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0001",
+      "to": "C-0047",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0001",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0001",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0017",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0017",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0017",
+      "to": "Q-0020",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0017",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0017",
+      "to": "C-0021",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0017",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0019",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0019",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0019",
+      "to": "Q-0022",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0019",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0019",
+      "to": "C-0021",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0019",
+      "to": "C-0044",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0019",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0020",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0020",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0020",
+      "to": "Q-0023",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0020",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0020",
+      "to": "C-0011",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0020",
+      "to": "C-0021",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0020",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0021",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0021",
+      "to": "Q-0019",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0021",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0021",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0021",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0021",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0053",
+      "to": "Q-0001",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0053",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0003",
+      "to": "Q-0005",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0003",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0003",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "Q-0005",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0007",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "C-0051",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0007",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0007",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0033",
+      "to": "Q-0005",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0033",
+      "to": "Q-0035",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0033",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0033",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0033",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0033",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0033",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0034",
+      "to": "Q-0005",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0034",
+      "to": "Q-0036",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0034",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0034",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0006",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0006",
+      "to": "Q-0013",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0006",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0006",
+      "to": "C-0035",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0006",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0006",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0030",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0030",
+      "to": "Q-0012",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0030",
+      "to": "Q-0032",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0030",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0030",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0030",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0031",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0031",
+      "to": "Q-0014",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0031",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0031",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0031",
+      "to": "C-0052",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0031",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0032",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0032",
+      "to": "Q-0014",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0032",
+      "to": "Q-0033",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0032",
+      "to": "Q-0034",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0032",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0050",
+      "to": "Q-0004",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0050",
+      "to": "Q-0011",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0050",
+      "to": "C-0011",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0050",
+      "to": "C-0027",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0050",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0047",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0047",
+      "to": "Q-0028",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0047",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0047",
+      "to": "C-0027",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0047",
+      "to": "M-0004",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0004",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0004",
+      "to": "Q-0029",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0004",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0004",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0009",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0009",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0009",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0010",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0010",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0010",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0010",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0011",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0011",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0011",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0012",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0012",
+      "to": "Q-0012",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0012",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0012",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0012",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0013",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0013",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0013",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0013",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0013",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0013",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0014",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0014",
+      "to": "C-0013",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0014",
+      "to": "C-0015",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0014",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0015",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0015",
+      "to": "Q-0033",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0015",
+      "to": "C-0013",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0015",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0016",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0016",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0016",
+      "to": "C-0009",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0016",
+      "to": "C-0045",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0016",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0018",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0018",
+      "to": "Q-0021",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0018",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0018",
+      "to": "C-0021",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0018",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0018",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0028",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0028",
+      "to": "Q-0030",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0028",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0028",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0028",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0028",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0029",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0029",
+      "to": "Q-0031",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0029",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0029",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0029",
+      "to": "C-0035",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0029",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0029",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0049",
+      "to": "Q-0002",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0049",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0049",
+      "to": "C-0029",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0049",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0040",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0040",
+      "to": "Q-0015",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0040",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0040",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0040",
+      "to": "M-0005",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0041",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0041",
+      "to": "Q-0015",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0041",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0041",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0041",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0042",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0042",
+      "to": "Q-0015",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0042",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0042",
+      "to": "C-0033",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0042",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0043",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0043",
+      "to": "Q-0016",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0043",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0043",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0043",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0044",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0044",
+      "to": "Q-0016",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0044",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0044",
+      "to": "C-0036",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0045",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0045",
+      "to": "Q-0017",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0045",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0045",
+      "to": "C-0016",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0045",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0046",
+      "to": "Q-0008",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0046",
+      "to": "Q-0018",
+      "edge": "addresses"
+    },
+    {
+      "from": "C-0046",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0046",
+      "to": "C-0040",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0046",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0046",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0046",
+      "to": "M-0003",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "E-0001",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0001",
+      "to": "S-0001",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0002",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0002",
+      "to": "S-0002",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0003",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0003",
+      "to": "S-0003",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0004",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0004",
+      "to": "S-0004",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0005",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0005",
+      "to": "C-0010",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0005",
+      "to": "S-0001",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0006",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0006",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0006",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0006",
+      "to": "S-0005",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0007",
+      "to": "C-0002",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0007",
+      "to": "S-0009",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "M-0003",
+      "to": "C-0005",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0003",
+      "to": "C-0024",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0003",
+      "to": "C-0027",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0003",
+      "to": "C-0046",
+      "edge": "informs"
+    },
+    {
+      "from": "E-0036",
+      "to": "C-0022",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0036",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0036",
+      "to": "S-0050",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0041",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0041",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0041",
+      "to": "S-0065",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0042",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0042",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0042",
+      "to": "S-0064",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0085",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0085",
+      "to": "S-0061",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0086",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0086",
+      "to": "S-0062",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0087",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0087",
+      "to": "S-0063",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0088",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0088",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0088",
+      "to": "S-0110",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0110",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0110",
+      "to": "C-0024",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0110",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0110",
+      "to": "S-0059",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0112",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0112",
+      "to": "C-0024",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0112",
+      "to": "S-0055",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0114",
+      "to": "C-0005",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0114",
+      "to": "C-0024",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0114",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0114",
+      "to": "S-0055",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0033",
+      "to": "C-0022",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0033",
+      "to": "S-0047",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0034",
+      "to": "C-0022",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0034",
+      "to": "S-0048",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0035",
+      "to": "C-0022",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0035",
+      "to": "S-0049",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0037",
+      "to": "C-0022",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0037",
+      "to": "S-0051",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0038",
+      "to": "C-0023",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0038",
+      "to": "S-0052",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0039",
+      "to": "C-0023",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0039",
+      "to": "S-0053",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0040",
+      "to": "C-0023",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0040",
+      "to": "S-0054",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0014",
+      "to": "C-0018",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0014",
+      "to": "C-0024",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0014",
+      "to": "S-0056",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0014",
+      "to": "S-0057",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0014",
+      "to": "S-0058",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0111",
+      "to": "C-0024",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0111",
+      "to": "S-0060",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0043",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0043",
+      "to": "S-0066",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0044",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0044",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0044",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0044",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0044",
+      "to": "S-0067",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0045",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0045",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0045",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0045",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0045",
+      "to": "S-0068",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0046",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0046",
+      "to": "S-0073",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0046",
+      "to": "S-0074",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0046",
+      "to": "S-0075",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0046",
+      "to": "S-0076",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0046",
+      "to": "S-0077",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0048",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0048",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0048",
+      "to": "C-0033",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0048",
+      "to": "C-0042",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0048",
+      "to": "C-0043",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0048",
+      "to": "S-0084",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0089",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0089",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0089",
+      "to": "S-0069",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0090",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0090",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0090",
+      "to": "S-0070",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0091",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0091",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0091",
+      "to": "S-0071",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0092",
+      "to": "C-0003",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0092",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0092",
+      "to": "S-0072",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0093",
+      "to": "C-0025",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0093",
+      "to": "S-0117",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0047",
+      "to": "C-0026",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0047",
+      "to": "S-0078",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0106",
+      "to": "C-0026",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0106",
+      "to": "S-0078",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0107",
+      "to": "C-0026",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0107",
+      "to": "S-0079",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0006",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0027",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0030",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0031",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0047",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0004",
+      "to": "C-0050",
+      "edge": "informs"
+    },
+    {
+      "from": "C-0039",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0039",
+      "to": "C-0008",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0039",
+      "to": "C-0027",
+      "edge": "supports"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0001",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0007",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0008",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0010",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0011",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0012",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0013",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0016",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0021",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0033",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0035",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0036",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0037",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0040",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0041",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0049",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0051",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0001",
+      "to": "C-0052",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0001",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0017",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0018",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0019",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0020",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0021",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0005",
+      "to": "C-0040",
+      "edge": "informs"
+    },
+    {
+      "from": "C-0008",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0008",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0008",
+      "to": "C-0039",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0008",
+      "to": "C-0047",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0008",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0008",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0035",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0035",
+      "to": "C-0029",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0035",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0036",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0036",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0036",
+      "to": "C-0037",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0036",
+      "to": "C-0044",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0036",
+      "to": "C-0052",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0036",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0037",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0037",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0037",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0051",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0051",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0051",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0051",
+      "to": "M-0002",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "C-0052",
+      "to": "C-0001",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0052",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0052",
+      "to": "C-0036",
+      "edge": "supports"
+    },
+    {
+      "from": "C-0052",
+      "to": "M-0001",
+      "edge": "usesMethod"
+    },
+    {
+      "from": "E-0011",
+      "to": "C-0017",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0011",
+      "to": "S-0026",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0012",
+      "to": "C-0017",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0012",
+      "to": "S-0027",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0013",
+      "to": "C-0017",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0013",
+      "to": "S-0028",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0017",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0017",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0017",
+      "to": "C-0036",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0017",
+      "to": "S-0031",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0018",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0018",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0018",
+      "to": "S-0032",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0019",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0019",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0019",
+      "to": "S-0033",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0020",
+      "to": "C-0019",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0020",
+      "to": "C-0036",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0020",
+      "to": "C-0044",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0020",
+      "to": "S-0034",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0021",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0021",
+      "to": "S-0035",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0022",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0022",
+      "to": "S-0036",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0023",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0023",
+      "to": "S-0037",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0024",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0024",
+      "to": "S-0038",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0025",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0025",
+      "to": "C-0028",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0025",
+      "to": "C-0049",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0025",
+      "to": "S-0039",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0026",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0026",
+      "to": "S-0040",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0027",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0027",
+      "to": "S-0041",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0028",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0028",
+      "to": "S-0042",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0029",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0029",
+      "to": "S-0043",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0030",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0030",
+      "to": "S-0044",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0031",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0031",
+      "to": "S-0045",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0032",
+      "to": "C-0020",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0032",
+      "to": "S-0046",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0007",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0008",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0009",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0013",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0014",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0015",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0018",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0021",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0034",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0037",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0042",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0045",
+      "edge": "informs"
+    },
+    {
+      "from": "M-0002",
+      "to": "C-0051",
+      "edge": "informs"
+    },
+    {
+      "from": "E-0010",
+      "to": "C-0013",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0010",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0010",
+      "to": "C-0014",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0010",
+      "to": "S-0023",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0055",
+      "to": "C-0028",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0055",
+      "to": "C-0049",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0055",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0055",
+      "to": "C-0007",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0055",
+      "to": "S-0096",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0063",
+      "to": "C-0034",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0063",
+      "to": "S-0115",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0057",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0057",
+      "to": "C-0041",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0057",
+      "to": "C-0046",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0057",
+      "to": "S-0100",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0057",
+      "to": "S-0101",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0057",
+      "to": "S-0102",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0057",
+      "to": "S-0098",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0057",
+      "to": "S-0097",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0058",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0058",
+      "to": "S-0080",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0058",
+      "to": "S-0097",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0058",
+      "to": "S-0098",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0058",
+      "to": "S-0099",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0073",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0073",
+      "to": "S-0006",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0074",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0074",
+      "to": "S-0007",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0075",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0075",
+      "to": "S-0008",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0076",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0076",
+      "to": "S-0085",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0077",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0077",
+      "to": "S-0086",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0078",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0078",
+      "to": "C-0050",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0078",
+      "to": "S-0087",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0079",
+      "to": "C-0006",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0079",
+      "to": "C-0050",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0079",
+      "to": "S-0089",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0054",
+      "to": "C-0028",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0054",
+      "to": "C-0049",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0054",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0054",
+      "to": "S-0095",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0056",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0056",
+      "to": "S-0088",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0080",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0080",
+      "to": "S-0014",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0080",
+      "to": "S-0090",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0081",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0081",
+      "to": "S-0091",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0082",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0082",
+      "to": "S-0092",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0083",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0083",
+      "to": "S-0093",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0084",
+      "to": "C-0030",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0084",
+      "to": "S-0094",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0059",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0059",
+      "to": "S-0104",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0060",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0060",
+      "to": "S-0109",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0065",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0065",
+      "to": "S-0105",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0066",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0066",
+      "to": "S-0106",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0067",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0067",
+      "to": "S-0107",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0068",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0068",
+      "to": "S-0108",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0108",
+      "to": "C-0031",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0050",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0050",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0050",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0050",
+      "to": "S-0013",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0050",
+      "to": "S-0081",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0061",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0061",
+      "to": "S-0112",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0062",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0062",
+      "to": "S-0113",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0069",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0069",
+      "to": "S-0111",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0072",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0072",
+      "to": "S-0114",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0105",
+      "to": "C-0032",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0105",
+      "to": "C-0037",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0105",
+      "to": "S-0013a",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0049",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0049",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0049",
+      "to": "S-0012",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0051",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0051",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0051",
+      "to": "S-0015",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0052",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0052",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0052",
+      "to": "S-0082",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0053",
+      "to": "C-0004",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0053",
+      "to": "C-0012",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0053",
+      "to": "S-0083",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "C-0009",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0008",
+      "to": "C-0013",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0008",
+      "to": "C-0014",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0016",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0017",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0018",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0019",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0020",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0021",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0008",
+      "to": "S-0022",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0104",
+      "to": "C-0009",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0104",
+      "to": "C-0014",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0104",
+      "to": "S-0011",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0009",
+      "to": "C-0016",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0009",
+      "to": "C-0011",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0009",
+      "to": "C-0045",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0009",
+      "to": "S-0025",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0009",
+      "to": "S-0025a",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0109",
+      "to": "C-0011",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0109",
+      "to": "C-0016",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0109",
+      "to": "S-0024",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0015",
+      "to": "C-0018",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0015",
+      "to": "S-0029",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0016",
+      "to": "C-0018",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0016",
+      "to": "S-0030",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0113",
+      "to": "C-0028",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0113",
+      "to": "S-0039",
+      "edge": "derivedFrom"
+    },
+    {
+      "from": "E-0094",
+      "to": "C-0044",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0094",
+      "to": "C-0036",
+      "edge": "supports"
+    },
+    {
+      "from": "E-0094",
+      "to": "S-0116",
+      "edge": "derivedFrom"
+    }
+  ]
+}

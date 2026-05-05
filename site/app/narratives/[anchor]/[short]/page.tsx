@@ -13,8 +13,10 @@ import {
   PaperViewToggle,
   type PaperToggleNarrative,
 } from "@/components/paper-view-toggle";
+import { BundleSummary, type BundleSummaryData } from "@/components/bundle-summary";
 import { NodeBadge } from "@/components/node-badge";
 import { Separator } from "@/components/ui/separator";
+import type { NodeType } from "@/lib/types";
 
 export const dynamicParams = false;
 
@@ -32,6 +34,28 @@ export async function generateMetadata({
   return {
     title: `Narrative · ${anchor} · ${short}`,
     description: `A narrative variant composed from the discourse graph, anchored at ${anchor}.`,
+  };
+}
+
+function sidecarToSummaryData(
+  sidecar: NonNullable<Narrative["sidecar"]>,
+): BundleSummaryData {
+  const bundle = sidecar.bundle ?? "1-hop";
+  const breadth = sidecar.breadth;
+  const strategyLabel =
+    bundle === "semantic"
+      ? `semantic walk${breadth ? ` · ${breadth}` : ""}`
+      : `${bundle === "2-hop" ? 2 : 1}-hop walk`;
+  return {
+    anchor: sidecar.anchor,
+    nodes: sidecar.nodes.map((n) => ({
+      id: n.id,
+      type: n.type as NodeType,
+      title: n.title,
+      isAnchor: n.isAnchor,
+    })),
+    edges: sidecar.edges,
+    strategyLabel,
   };
 }
 
@@ -154,6 +178,15 @@ export default async function NarrativeVariantPage({
       </header>
 
       <Separator className="my-10" />
+
+      {narrative.sidecar && (
+        <div className="mx-auto max-w-3xl mb-10">
+          <BundleSummary
+            data={sidecarToSummaryData(narrative.sidecar)}
+            defaultOpen={false}
+          />
+        </div>
+      )}
 
       <article className="mx-auto max-w-3xl min-w-0" data-pagefind-body>
         <MarkdownProse source={narrative.body} />
