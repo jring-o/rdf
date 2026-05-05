@@ -66,9 +66,6 @@ export default async function NarrativesPage() {
     };
   });
 
-  const firstNarrativeHref =
-    toggleNarratives[0]?.href ?? "/narratives/generate";
-
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <header className="space-y-4 max-w-3xl">
@@ -90,16 +87,11 @@ export default async function NarrativesPage() {
             That paper-first origin is unusual. Discourse graphs are normally
             built incrementally: contributors add Questions, Claims, Evidence,
             and counter-evidence over time, and the graph emerges. From any
-            such graph, narratives can be composed for any audience —
-            academic paper, executive brief, blog post, position statement —
-            by selecting nodes and rendering them in a chosen voice. The{" "}
-            <Link
-              href={firstNarrativeHref}
-              className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
-            >
-              composed narratives
-            </Link>{" "}
-            below are early demonstrations of that direction, or you can{" "}
+            such graph, narratives are composed by anchoring at a node and
+            traversing its neighborhood — each one a dated view of the
+            argument at the moment it was rendered, regenerable as the graph
+            accumulates new evidence. The composed narratives below are
+            early demonstrations of that direction, or you can{" "}
             <Link
               href="/narratives/generate"
               className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"

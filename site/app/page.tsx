@@ -160,7 +160,7 @@ export default async function HomePage() {
             follow. See the structure at a glance, read the argument end-to-end, or open a single node
             and follow its edges from there. Each path covers the same
             set of claims, evidence, questions, methods, and
-            sources. Over time, the seams between papers begin to dissolve: a Claim, an
+            sources. Over time, as the graph grows, the seams between papers begin to dissolve: a Claim, an
             Evidence item, a Method belongs to the graph of human discourse — becomes a part of whatever uses it — not to any single
             publication that happened to introduce it. 
           </p>
