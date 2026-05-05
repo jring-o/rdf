@@ -20,19 +20,18 @@ export const dynamicParams = false;
 
 export async function generateStaticParams() {
   const narratives = await listNarratives();
-  const anchors = new Set(narratives.map((n) => n.anchorId));
-  return Array.from(anchors).map((anchor) => ({ anchor }));
+  return narratives.map((n) => ({ anchor: n.anchorId, short: n.shortId }));
 }
 
 export async function generateMetadata({
   params,
 }: {
-  params: Promise<{ anchor: string }>;
+  params: Promise<{ anchor: string; short: string }>;
 }) {
-  const { anchor } = await params;
+  const { anchor, short } = await params;
   return {
-    title: `Composed narrative · ${anchor}`,
-    description: `A narrative composed from the discourse graph, anchored at ${anchor}.`,
+    title: `Narrative · ${anchor} · ${short}`,
+    description: `A narrative variant composed from the discourse graph, anchored at ${anchor}.`,
   };
 }
 
@@ -65,48 +64,52 @@ function buildToggleNarratives(
   });
 }
 
-export default async function NarrativePage({
+export default async function NarrativeVariantPage({
   params,
 }: {
-  params: Promise<{ anchor: string }>;
+  params: Promise<{ anchor: string; short: string }>;
 }) {
-  const { anchor } = await params;
+  const { anchor, short } = await params;
   const [narratives, graph, paper] = await Promise.all([
     listNarratives(),
     loadGraph(),
     loadPaper(),
   ]);
-  const forAnchor = narratives.filter((n) => n.anchorId === anchor);
-  const primary = pickPrimary(forAnchor);
-  if (!primary) notFound();
-  const variants = forAnchor.filter((n) => n.shortId !== primary.shortId);
-  const anchorNode = graph.nodes.get(primary.anchorId);
+  const narrative = narratives.find(
+    (n) => n.anchorId === anchor && n.shortId === short,
+  );
+  if (!narrative) notFound();
 
+  const anchorNode = graph.nodes.get(narrative.anchorId);
   const toggleNarratives = buildToggleNarratives(narratives, (id) => {
     const node = graph.nodes.get(id);
     return node?.title ?? id;
   });
 
+  const fm = narrative.frontmatter;
+  const provenance = [
+    fm.audience && `audience: ${fm.audience}`,
+    fm.length && `length: ${fm.length}`,
+    fm.voice && `voice: ${fm.voice}`,
+    fm.depth && `depth: ${fm.depth}`,
+    fm.model && `model: ${fm.model}`,
+    fm.generatedAt && `generated: ${fm.generatedAt}`,
+    fm.contributor && `by: @${fm.contributor}`,
+  ].filter((s): s is string => Boolean(s));
+
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
       <header className="space-y-4 max-w-3xl">
         <p className="font-mono text-xs uppercase tracking-[0.2em] text-primary">
-          Composed narrative · anchored at {primary.anchorId}
+          Composed narrative · {narrative.anchorId} · {narrative.shortId}
         </p>
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
-          {anchorNode?.title ?? primary.anchorId}
+          {anchorNode?.title ?? narrative.anchorId}
         </h1>
 
         <div className="space-y-3 text-muted-foreground">
           <p>
-            Discourse graphs aren&apos;t designed to be read linearly. Once a
-            graph exists — whether decomposed from a paper, accumulated
-            through contributions, or both — narratives can be composed from
-            its nodes for any audience: an academic paper, an executive
-            brief, a blog post, a position statement.
-          </p>
-          <p>
-            This page is one such narrative. The depth-1 neighborhood around{" "}
+            A composed narrative anchored at{" "}
             {anchorNode ? (
               <Link
                 href={`/node/${anchorNode.id}`}
@@ -118,44 +121,25 @@ export default async function NarrativePage({
                 </span>
               </Link>
             ) : (
-              <span className="font-mono">{primary.anchorId}</span>
-            )}{" "}
-            — the anchor node plus everything one hop away — was bundled and
-            handed to a language model with framing rules: cite Sources by
-            graph ID, don&apos;t invent facts, leave gaps marked. The graph
-            is the source of truth; this is one telling. Inline IDs link
-            back to their canonical nodes.
+              <span className="font-mono">{narrative.anchorId}</span>
+            )}
+            . The graph is the source of truth; this is one telling.
           </p>
+          {provenance.length > 0 && (
+            <p className="font-mono text-xs">{provenance.join(" · ")}</p>
+          )}
           <p className="text-xs">
-            Want to see the bundle this narrative drew from?{" "}
             <Link
-              href={`/graph/${primary.anchorId}`}
+              href={`/narratives/${narrative.anchorId}`}
               className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
             >
-              Inspect the bundle visually.
+              Back to the primary narrative for {narrative.anchorId}.
             </Link>
           </p>
-          {variants.length > 0 && (
-            <p className="text-xs">
-              {variants.length} other variant{variants.length === 1 ? "" : "s"}{" "}
-              for this anchor:{" "}
-              {variants.map((v, i) => (
-                <span key={v.shortId}>
-                  <Link
-                    href={`/narratives/${v.anchorId}/${v.shortId}`}
-                    className="font-mono text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
-                  >
-                    {v.shortId}
-                  </Link>
-                  {i < variants.length - 1 ? ", " : ""}
-                </span>
-              ))}
-            </p>
-          )}
         </div>
 
         <PaperViewToggle
-          active={{ kind: "narrative", slug: primary.slug }}
+          active={{ kind: "narrative", slug: narrative.slug }}
           narratives={toggleNarratives}
         />
         {!paper.raw ? null : (
@@ -170,11 +154,8 @@ export default async function NarrativePage({
 
       <Separator className="my-10" />
 
-      <article
-        className="mx-auto max-w-3xl min-w-0"
-        data-pagefind-body
-      >
-        <MarkdownProse source={primary.body} />
+      <article className="mx-auto max-w-3xl min-w-0" data-pagefind-body>
+        <MarkdownProse source={narrative.body} />
       </article>
     </div>
   );

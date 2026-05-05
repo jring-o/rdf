@@ -1,9 +1,10 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
+import matter from "gray-matter";
 
 const PAPER_PATH = path.resolve(process.cwd(), "..", "paper", "whitepaper-v3.md");
-// Narrative bundles live alongside the regen.py tool that composes them.
-const NARRATIVE_DIR = path.resolve(process.cwd(), "..", "tools", "regen-outputs");
+// Composed narratives live at <repo>/narratives, sibling of paper/ and graph/.
+const NARRATIVE_DIR = path.resolve(process.cwd(), "..", "narratives");
 
 export interface PaperSection {
   /** "§1.2" style label */
@@ -22,14 +23,37 @@ export interface Paper {
   sections: PaperSection[];
 }
 
-export interface NarrativeBundle {
+export interface NarrativeFrontmatter {
+  anchor?: string;
+  audience?: string;
+  length?: string;
+  voice?: string;
+  depth?: number;
+  generatedAt?: string;
+  generatedBy?: string;
+  model?: string;
+  contributor?: string;
+  contributorUrl?: string;
+  canonical?: boolean;
+}
+
+export interface Narrative {
+  /** Anchor node ID, e.g. "Q-0003" */
   anchorId: string;
+  /** 8-char hex variant ID, e.g. "4101288a" */
+  shortId: string;
+  /** Full file basename without extension, e.g. "Q-0003-4101288a" */
+  slug: string;
   filePath: string;
+  /** Markdown body with frontmatter stripped */
+  body: string;
+  /** Original raw file contents (frontmatter included) */
   raw: string;
+  frontmatter: NarrativeFrontmatter;
 }
 
 let paperCache: Paper | null = null;
-let narrativeCache: NarrativeBundle[] | null = null;
+let narrativeCache: Narrative[] | null = null;
 
 function slugify(s: string): string {
   return s
@@ -108,11 +132,38 @@ export async function loadPaper(): Promise<Paper> {
   return paperCache;
 }
 
+function toStringMaybe(v: unknown): string | undefined {
+  if (v == null) return undefined;
+  if (v instanceof Date) return v.toISOString().slice(0, 10);
+  return String(v);
+}
+
+function parseNarrativeFrontmatter(
+  data: Record<string, unknown>,
+): NarrativeFrontmatter {
+  const depth = data.depth;
+  return {
+    anchor: toStringMaybe(data.anchor),
+    audience: toStringMaybe(data.audience),
+    length: toStringMaybe(data.length),
+    voice: toStringMaybe(data.voice),
+    depth: typeof depth === "number" ? depth : undefined,
+    generatedAt: toStringMaybe(data.generatedAt),
+    generatedBy: toStringMaybe(data.generatedBy),
+    model: toStringMaybe(data.model),
+    contributor: toStringMaybe(data.contributor),
+    contributorUrl: toStringMaybe(data.contributorUrl),
+    canonical: data.canonical === true,
+  };
+}
+
 /**
- * List all regen output bundles. Each file is a fully-composed narrative
- * anchored on a seed node ID encoded in its filename (`bundle-Q-0003.md`).
+ * List all composed narratives. Each file is a markdown narrative with YAML
+ * frontmatter, named `{anchorId}-{shortId}.md` where shortId is 8 hex chars.
+ * Multiple narratives per anchor coexist; the page picks a canonical one
+ * (frontmatter `canonical: true`, else lex-first by shortId).
  */
-export async function listNarrativeBundles(): Promise<NarrativeBundle[]> {
+export async function listNarratives(): Promise<Narrative[]> {
   if (narrativeCache) return narrativeCache;
   let entries: string[];
   try {
@@ -124,16 +175,41 @@ export async function listNarrativeBundles(): Promise<NarrativeBundle[]> {
     }
     throw err;
   }
-  const out: NarrativeBundle[] = [];
+  const out: Narrative[] = [];
   for (const entry of entries) {
     if (!entry.endsWith(".md")) continue;
-    const m = /^bundle-([A-Z]-\d+[a-z]?)\.md$/.exec(entry);
+    const m = /^([A-Z]-\d+[a-z]?)-([0-9a-f]{8})\.md$/.exec(entry);
     if (!m) continue;
     const filePath = path.join(NARRATIVE_DIR, entry);
     const raw = await fs.readFile(filePath, "utf-8");
-    out.push({ anchorId: m[1], filePath, raw });
+    const parsed = matter(raw);
+    const frontmatter = parseNarrativeFrontmatter(
+      parsed.data as Record<string, unknown>,
+    );
+    out.push({
+      anchorId: m[1],
+      shortId: m[2],
+      slug: `${m[1]}-${m[2]}`,
+      filePath,
+      body: parsed.content.trim(),
+      raw,
+      frontmatter,
+    });
   }
-  out.sort((a, b) => a.anchorId.localeCompare(b.anchorId));
+  out.sort((a, b) => {
+    const cmp = a.anchorId.localeCompare(b.anchorId);
+    if (cmp !== 0) return cmp;
+    return a.shortId.localeCompare(b.shortId);
+  });
   narrativeCache = out;
   return narrativeCache;
+}
+
+/**
+ * Pick the canonical narrative for an anchor. Prefers `canonical: true` in
+ * frontmatter, falls back to the lex-first shortId.
+ */
+export function pickPrimary(narratives: Narrative[]): Narrative | undefined {
+  if (narratives.length === 0) return undefined;
+  return narratives.find((n) => n.frontmatter.canonical) ?? narratives[0];
 }

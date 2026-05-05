@@ -1,5 +1,5 @@
-// Walks ../graph/*.md, ../paper/whitepaper-v3.md, and ../tools/regen-outputs/
-// to produce site/lib/graph-data.generated.json — the runtime data source for
+// Walks ../graph/*.md, ../paper/whitepaper-v3.md, and ../narratives/ to
+// produce site/lib/graph-data.generated.json — the runtime data source for
 // the /api/generate route. The route can't reach files outside site/ at
 // Vercel function runtime, so we bake everything into a JSON bundle at build.
 
@@ -13,7 +13,7 @@ const SITE_ROOT = path.resolve(__dirname, "..");
 const REPO_ROOT = path.resolve(SITE_ROOT, "..");
 const GRAPH_ROOT = path.join(REPO_ROOT, "graph");
 const PAPER_PATH = path.join(REPO_ROOT, "paper", "whitepaper-v3.md");
-const NARRATIVE_DIR = path.join(REPO_ROOT, "tools", "regen-outputs");
+const NARRATIVE_DIR = path.join(REPO_ROOT, "narratives");
 const OUT_PATH = path.join(SITE_ROOT, "lib", "graph-data.generated.json");
 
 const NODE_TYPES = ["question", "claim", "evidence", "method", "source"];
@@ -115,12 +115,16 @@ async function readNarratives() {
   const out = [];
   for (const entry of entries) {
     if (!entry.endsWith(".md")) continue;
-    const m = /^bundle-([A-Z]-\d+[a-z]?)\.md$/.exec(entry);
+    const m = /^([A-Z]-\d+[a-z]?)-([0-9a-f]{8})\.md$/.exec(entry);
     if (!m) continue;
     const raw = await fs.readFile(path.join(NARRATIVE_DIR, entry), "utf-8");
-    out.push({ anchorId: m[1], raw });
+    out.push({ anchorId: m[1], shortId: m[2], raw });
   }
-  out.sort((a, b) => a.anchorId.localeCompare(b.anchorId));
+  out.sort((a, b) => {
+    const cmp = a.anchorId.localeCompare(b.anchorId);
+    if (cmp !== 0) return cmp;
+    return a.shortId.localeCompare(b.shortId);
+  });
   return out;
 }
 

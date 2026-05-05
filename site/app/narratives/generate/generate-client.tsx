@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { Sparkles, Square } from "lucide-react";
+import { GitPullRequest, Loader2, Sparkles, Square } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
 import { MarkdownProse } from "@/components/markdown-prose";
@@ -17,6 +17,23 @@ interface NodeOption {
 type Audience = "academic" | "executive" | "blog" | "position";
 type Length = "short" | "medium" | "long";
 type Voice = "formal" | "conversational" | "plain";
+
+// Mirrors the OpenRouter fallback chain configured in /api/generate/route.ts.
+// Recorded in narrative frontmatter for provenance.
+const MODEL_CHAIN =
+  "mistralai/mistral-large (with google/gemini-2.5-flash, google/gemini-2.5-flash-lite fallbacks)";
+
+const SESSION_KEY = "pendingNarrative";
+
+interface PendingNarrative {
+  anchorId: string;
+  depth: 1 | 2;
+  audience: Audience;
+  length: Length;
+  voice: Voice;
+  content: string;
+  model: string;
+}
 
 const AUDIENCES: ReadonlyArray<{ value: Audience; label: string; hint: string }> = [
   { value: "academic", label: "Academic", hint: "Paper section, dense argument" },
@@ -38,6 +55,9 @@ const VOICES: ReadonlyArray<{ value: Voice; label: string; hint: string }> = [
 ];
 
 export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
+  // Default-empty initial state. Resume-from-OAuth populates these in a
+  // mount-only useEffect below so server and client render identically on
+  // first paint (avoiding a hydration mismatch).
   const [anchorId, setAnchorId] = React.useState("");
   const [depth, setDepth] = React.useState<1 | 2>(1);
   const [audience, setAudience] = React.useState<Audience>("academic");
@@ -46,10 +66,12 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
   const [output, setOutput] = React.useState("");
   const [streaming, setStreaming] = React.useState(false);
   const [error, setError] = React.useState<string | null>(null);
+  const [submitting, setSubmitting] = React.useState(false);
   const abortRef = React.useRef<AbortController | null>(null);
 
   const matched = nodes.find((n) => n.id === anchorId.trim());
-  const canSubmit = !!matched && !streaming;
+  const canGenerate = !!matched && !streaming;
+  const canContribute = !!output && !streaming && !submitting;
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
@@ -101,6 +123,137 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
   function handleStop() {
     abortRef.current?.abort();
   }
+
+  const submitPayload = React.useCallback(
+    async (payload: PendingNarrative) => {
+      setSubmitting(true);
+      setError(null);
+      try {
+        const res = await fetch("/api/github/contribute", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            anchorId: payload.anchorId,
+            depth: payload.depth,
+            audience: payload.audience,
+            length: payload.length,
+            voice: payload.voice,
+            content: payload.content,
+            model: payload.model,
+          }),
+        });
+        if (res.status === 401) {
+          // Token gone or expired — restart OAuth.
+          window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(payload));
+          window.location.href =
+            "/api/github/start?return=" +
+            encodeURIComponent("/narratives/generate?resume=1");
+          return;
+        }
+        if (!res.ok) {
+          const data = (await res.json().catch(() => ({}))) as {
+            error?: string;
+            detail?: string;
+          };
+          setError(data.detail || data.error || `Error ${res.status}`);
+          setSubmitting(false);
+          return;
+        }
+        const data = (await res.json()) as { compareUrl: string };
+        window.sessionStorage.removeItem(SESSION_KEY);
+        // Same-tab navigation to GitHub's "Compare & pull request" page.
+        window.location.href = data.compareUrl;
+      } catch (err) {
+        setError((err as Error).message);
+        setSubmitting(false);
+      }
+    },
+    [],
+  );
+
+  async function handleContribute() {
+    if (!output) return;
+    const payload: PendingNarrative = {
+      anchorId,
+      depth,
+      audience,
+      length,
+      voice,
+      content: output,
+      model: MODEL_CHAIN,
+    };
+    setSubmitting(true);
+    setError(null);
+    let authed = false;
+    try {
+      const meRes = await fetch("/api/github/me", { cache: "no-store" });
+      if (meRes.ok) {
+        const me = (await meRes.json()) as { authed: boolean };
+        authed = me.authed;
+      }
+    } catch {
+      // fall through to OAuth
+    }
+    if (authed) {
+      await submitPayload(payload);
+      return;
+    }
+    window.sessionStorage.setItem(SESSION_KEY, JSON.stringify(payload));
+    window.location.href =
+      "/api/github/start?return=" +
+      encodeURIComponent("/narratives/generate?resume=1");
+  }
+
+  // Mount-only effect:
+  //   - Read ?resume=1 / ?error=auth_denied from the URL (client only — server
+  //     renders default empty state to keep hydration consistent).
+  //   - If resuming, restore the form from sessionStorage and post it.
+  //   - Strip the URL params so a refresh doesn't repeat the action.
+  const mountedRef = React.useRef(false);
+  React.useEffect(() => {
+    if (mountedRef.current) return;
+    mountedRef.current = true;
+
+    const url = new URL(window.location.href);
+    const isResume = url.searchParams.get("resume") === "1";
+    const authDenied = url.searchParams.get("error") === "auth_denied";
+
+    let dirty = false;
+    if (url.searchParams.has("resume")) {
+      url.searchParams.delete("resume");
+      dirty = true;
+    }
+    if (url.searchParams.has("error")) {
+      url.searchParams.delete("error");
+      dirty = true;
+    }
+    if (dirty) window.history.replaceState({}, "", url.toString());
+
+    if (authDenied) {
+      setError(
+        "GitHub authorization was denied. Click 'Submit to repo' to try again.",
+      );
+      return;
+    }
+
+    if (!isResume) return;
+    const stored = window.sessionStorage.getItem(SESSION_KEY);
+    if (!stored) return;
+    let payload: PendingNarrative;
+    try {
+      payload = JSON.parse(stored) as PendingNarrative;
+    } catch {
+      window.sessionStorage.removeItem(SESSION_KEY);
+      return;
+    }
+    setAnchorId(payload.anchorId);
+    setDepth(payload.depth);
+    setAudience(payload.audience);
+    setLength(payload.length);
+    setVoice(payload.voice);
+    setOutput(payload.content);
+    void submitPayload(payload);
+  }, [submitPayload]);
 
   return (
     <div className="grid gap-10 lg:grid-cols-[320px_minmax(0,1fr)]">
@@ -174,7 +327,7 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
           options={VOICES}
         />
 
-        <div className="flex items-center gap-2 pt-2">
+        <div className="flex flex-wrap items-center gap-2 pt-2">
           {streaming ? (
             <Button
               type="button"
@@ -186,12 +339,35 @@ export function GenerateClient({ nodes }: { nodes: NodeOption[] }) {
               Stop
             </Button>
           ) : (
-            <Button type="submit" disabled={!canSubmit} className="gap-2">
+            <Button type="submit" disabled={!canGenerate} className="gap-2">
               <Sparkles className="h-3.5 w-3.5" />
               Generate
             </Button>
           )}
+          {output && !streaming && (
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleContribute}
+              disabled={!canContribute}
+              className="gap-2"
+            >
+              {submitting ? (
+                <Loader2 className="h-3.5 w-3.5 animate-spin" />
+              ) : (
+                <GitPullRequest className="h-3.5 w-3.5" />
+              )}
+              {submitting ? "Submitting…" : "Submit to repo"}
+            </Button>
+          )}
         </div>
+        {output && !streaming && (
+          <p className="text-[11px] text-muted-foreground">
+            Submitting opens GitHub&apos;s &ldquo;Compare &amp; pull
+            request&rdquo; page on a branch in your fork. You finalize and
+            click &ldquo;Create pull request&rdquo; there.
+          </p>
+        )}
 
         {error && (
           <p className="rounded-md border border-destructive/40 bg-destructive/10 px-3 py-2 text-xs text-destructive">

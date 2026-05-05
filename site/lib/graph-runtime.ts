@@ -31,7 +31,7 @@ interface RawNode {
 interface RawData {
   nodes: RawNode[];
   paper: string;
-  narratives: Array<{ anchorId: string; raw: string }>;
+  narratives: Array<{ anchorId: string; shortId: string; raw: string }>;
 }
 
 const raw = data as unknown as RawData;

@@ -1,9 +1,12 @@
 import Link from "next/link";
 
-import { loadPaper, listNarrativeBundles } from "@/lib/paper";
+import { loadPaper, listNarratives, pickPrimary } from "@/lib/paper";
 import { loadGraph } from "@/lib/graph";
 import { MarkdownProse } from "@/components/markdown-prose";
-import { PaperViewToggle } from "@/components/paper-view-toggle";
+import {
+  PaperViewToggle,
+  type PaperToggleNarrative,
+} from "@/components/paper-view-toggle";
 import { Separator } from "@/components/ui/separator";
 
 export const metadata = {
@@ -15,7 +18,7 @@ export const metadata = {
 export default async function NarrativesPage() {
   const [paper, narratives, graph] = await Promise.all([
     loadPaper(),
-    listNarrativeBundles(),
+    listNarratives(),
     loadGraph(),
   ]);
 
@@ -32,10 +35,39 @@ export default async function NarrativesPage() {
     );
   }
 
-  const narrativeAnchors = narratives.map((b) => {
-    const node = graph.nodes.get(b.anchorId);
-    return { anchorId: b.anchorId, title: node?.title ?? b.anchorId };
+  const byAnchor = new Map<string, typeof narratives>();
+  for (const n of narratives) {
+    const list = byAnchor.get(n.anchorId) ?? [];
+    list.push(n);
+    byAnchor.set(n.anchorId, list);
+  }
+
+  const toggleNarratives: PaperToggleNarrative[] = narratives.map((n) => {
+    const node = graph.nodes.get(n.anchorId);
+    const anchorList = byAnchor.get(n.anchorId) ?? [];
+    const primary = pickPrimary(anchorList);
+    const isPrimary = primary?.shortId === n.shortId;
+    const formBits = [n.frontmatter.audience, n.frontmatter.voice].filter(
+      (s): s is string => Boolean(s),
+    );
+    const sublabel = formBits.length
+      ? formBits.join(" · ")
+      : n.frontmatter.generatedBy === "offline"
+      ? "Composed · anchored"
+      : "Composed · anchored";
+    return {
+      slug: n.slug,
+      anchorId: n.anchorId,
+      href: isPrimary
+        ? `/narratives/${n.anchorId}`
+        : `/narratives/${n.anchorId}/${n.shortId}`,
+      title: node?.title ?? n.anchorId,
+      sublabel,
+    };
   });
+
+  const firstNarrativeHref =
+    toggleNarratives[0]?.href ?? "/narratives/generate";
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 sm:py-16">
@@ -62,7 +94,7 @@ export default async function NarrativesPage() {
             academic paper, executive brief, blog post, position statement —
             by selecting nodes and rendering them in a chosen voice. The{" "}
             <Link
-              href="/narratives/Q-0003"
+              href={firstNarrativeHref}
               className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
             >
               composed narratives
@@ -79,7 +111,7 @@ export default async function NarrativesPage() {
         </div>
         <PaperViewToggle
           active={{ kind: "whitepaper" }}
-          narrativeAnchors={narrativeAnchors}
+          narratives={toggleNarratives}
         />
       </header>
 

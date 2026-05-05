@@ -2,17 +2,22 @@ import Link from "next/link";
 import { FileText, Sparkles, Wand2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export interface PaperToggleAnchor {
+export interface PaperToggleNarrative {
+  /** Full unique slug, e.g. "Q-0003-4101288a" */
+  slug: string;
   anchorId: string;
+  /** "/narratives/Q-0003" for canonical, "/narratives/Q-0003/4101288a" for variants */
+  href: string;
   title: string;
+  sublabel?: string;
 }
 
 export function PaperViewToggle({
   active,
-  narrativeAnchors,
+  narratives,
 }: {
-  active: { kind: "whitepaper" } | { kind: "narrative"; anchorId: string };
-  narrativeAnchors: PaperToggleAnchor[];
+  active: { kind: "whitepaper" } | { kind: "narrative"; slug: string };
+  narratives: PaperToggleNarrative[];
 }) {
   return (
     <div className="space-y-2">
@@ -27,15 +32,15 @@ export function PaperViewToggle({
           label="Original whitepaper"
           sublabel="Source · paper-shaped"
         />
-        {narrativeAnchors.map((a) => (
+        {narratives.map((n) => (
           <ToggleChip
-            key={a.anchorId}
-            href={`/narratives/${a.anchorId}`}
-            active={active.kind === "narrative" && active.anchorId === a.anchorId}
+            key={n.slug}
+            href={n.href}
+            active={active.kind === "narrative" && active.slug === n.slug}
             icon={<Sparkles className="h-3.5 w-3.5 shrink-0" />}
-            label={a.title}
-            mono={a.anchorId}
-            sublabel="Composed · anchored"
+            label={n.title}
+            mono={n.anchorId}
+            sublabel={n.sublabel ?? "Composed · anchored"}
           />
         ))}
       </div>
