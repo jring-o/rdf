@@ -2,7 +2,7 @@
 
 A living, content-addressed, contributable form of the SciOS *Resilient Data Futures* whitepaper.
 
-The paper argues that research data loss is an architectural problem: single-copy concentration produces inevitable loss; protocol-level distribution produces structural redundancy. The paper is published here as a **discourse graph** — every claim, evidence item, question, method, and source is its own addressable file. The argument is the form.
+The paper argues that research data loss is an architectural problem: single-copy concentration produces inevitable loss; protocol-level distribution produces structural redundancy. The paper is published here as a **discourse graph** — every claim, evidence item, question, method, and source is its own addressable file.
 
 ## What's here
 

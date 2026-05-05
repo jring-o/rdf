@@ -58,27 +58,33 @@ export default function AboutPage() {
           content, and to demonstrate what becomes possible once it exists.
         </p>
         <p>
-          <strong>Contribution becomes node-shaped.</strong>{" "}
-          The argument is contributable at the right grain. A counterclaim is a new node
-          attached to the original, not a competing paper published
-          somewhere else. A new piece of evidence is a new node, not a
-          fight over a paragraph. A new question opens a line the existing
-          graph doesn&apos;t address.
+          <strong>Contributions become atomic.</strong>{" "}
+          A paper bundles a question, methods, claims, and evidence
+          together; none of it gets published until all of it does. To
+          share one new observation, you write the surrounding apparatus —
+          introduction, methods, related work, discussion — even when
+          none of that is new. A discourse graph removes the bundle. One
+          new observation is one Evidence node, with edges to the Claims
+          it supports or opposes. One new assertion is one Claim node,
+          addressing a Question and supporting or opposing other Claims.
+          One new line of inquiry is one Question node. Each attaches to
+          what it bears on, and that&apos;s the contribution.
         </p>
         <p>
-          <strong>Publishing becomes discrete.</strong> Instead of
-          monolithic, time-bound releases on multi-year cycles, you publish
-          when you have something to add — a single Claim, a single
-          Evidence, a methodology fork. The unit of contribution shrinks to
-          the unit of new understanding.
-        </p>
-        <p>
-          <strong>Review changes shape.</strong> Reviewing a paragraph in a
-          paper means arguing about wording. Reviewing a node means
-          engaging directly with a Claim, an Evidence, a Source, or a
-          Method — and the response, whether agreement, counterclaim, or
-          methodology fork, lives as another node attached at the right
-          edge.
+          <strong>Specialists become authors.</strong>{" "}
+          A paper demands generalist scaffolding — introduction, methods,
+          related work, framing, discussion — so the people who hold one
+          sharp contribution often can&apos;t be authors on their own
+          terms. The data curator who tracked down a hard-to-find Source,
+          the methodologist who formalized a single instrument, the
+          practitioner with one decisive field observation: each typically
+          has to partner with a generalist who will wrap the piece in
+          apparatus, or watch the contribution go uncredited. The graph
+          removes the apparatus requirement. A Method, an Evidence, a
+          Source, a single Claim is itself a complete, citable, credited
+          contribution. Authorship stops being gated on the ability to
+          produce a whole paper, and the population of people who can
+          author scientific work expands to anyone with one good node.
         </p>
         <p>
           <strong>Credit becomes granular.</strong>{" "}
@@ -91,14 +97,44 @@ export default function AboutPage() {
           up into &ldquo;lead author of paper X.&rdquo;
         </p>
         <p>
-          <strong>Narratives become snapshots.</strong> From the graph,
-          narratives can be composed for any audience — academic paper,
-          executive brief, blog post — without rewriting the underlying
-          claims. They also evolve: the narrative composed today is one
-          telling; the same narrative composed after the graph accumulates
-          more evidence and counter-evidence is a different telling.
-          Narratives stop being static artifacts. They become comfortable
-          as snapshots of an evolving understanding.
+          <strong>Review becomes a linter; validation becomes topological.</strong>{" "}
+          Peer review of a paper bundles many things at once —
+          gatekeeping, wording, framing, validating the work, signaling
+          trust to the reader. The bundle dissolves at the node level.
+          Reviewing a node is mostly form-checking: does this Evidence
+          cite the Source it claims, is the Claim it points at really a
+          Claim, is the prose self-contained. Most of that is lintable.
+          The substantive work — what&apos;s true, what holds up, what
+          matters — doesn&apos;t happen in a review pass; it happens in
+          the graph itself, over time. A weak Claim accumulates opposing
+          Evidence. A strong one accumulates supporting Evidence and
+          Claims that build on it. The trust signal is the topology, not a
+          stamp.
+        </p>
+        <p>
+          <strong>Publishing becomes continuous.</strong>{" "}
+          A paper waits — for a journal slot, a conference deadline, a
+          grant cycle, an annual report. By the time the work appears it
+          is often eighteen months old, and a counter-finding discovered
+          next week has nowhere to land until the next cycle opens. The
+          graph has no cycle. A new Evidence node ships the day it is
+          found; a counter-Claim ships the day it is formulated; a
+          Question that opens up at midnight is addressable by morning.
+          Publishing tracks the rhythm of inquiry instead of the rhythm of
+          institutions.
+        </p>
+        <p>
+          <strong>Narratives become snapshots.</strong>{" "}
+          A paper captures the state of the argument at the moment it was
+          written, and that is the state it continues to assert long after
+          the evidence has moved. A narrative composed from the graph is
+          dated by construction. Today&apos;s telling reflects today&apos;s
+          evidence; next year&apos;s telling, regenerated against a graph
+          that has accumulated supporting and opposing evidence in the
+          meantime, is a different telling. Nothing is rewritten — the
+          underlying nodes have moved, and the rendering follows. The
+          narrative is a view of the graph at a moment in time, and
+          another view can be composed whenever it is useful.
         </p>
         <p>
           The original whitepaper, this site, and each composed narrative
