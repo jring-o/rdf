@@ -11,6 +11,7 @@ import type {
   Graph,
   GraphNode,
   IncomingEdge,
+  NodeIssueMap,
   NodeType,
   OutgoingEdge,
 } from "./types";
@@ -32,6 +33,7 @@ interface RawData {
   nodes: RawNode[];
   paper: string;
   narratives: Array<{ anchorId: string; shortId: string; raw: string }>;
+  nodeIssues?: NodeIssueMap;
 }
 
 const raw = data as unknown as RawData;
@@ -82,7 +84,13 @@ function buildGraph(): Graph {
     }
   }
 
-  return { nodes, byType, bySection, brokenEdges: [] };
+  return {
+    nodes,
+    byType,
+    bySection,
+    brokenEdges: [],
+    nodeIssues: raw.nodeIssues ?? {},
+  };
 }
 
 export function loadGraphRuntime(): Graph {

@@ -1,0 +1,21 @@
+name: Lint discourse graph
+
+on:
+  pull_request:
+    paths:
+      - "graph/**"
+      - "tools/lint-graph.mjs"
+      - "tools/walk.mjs"
+      - ".github/workflows/lint-graph.yml"
+  workflow_dispatch:
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Lint graph
+        run: node tools/lint-graph.mjs

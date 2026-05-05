@@ -4,9 +4,13 @@ The argument lives in the graph. Every Claim, Evidence item, Question, Method, a
 
 ## Modes of contribution
 
+There is one issue template (**Discussion**) and one PR pattern. The schema does the semantic work — a counterclaim is just a Claim with `opposes:`, counter-evidence is just an Evidence with `opposes:`, and so on. Every node uses the same schema regardless of intent.
+
 ### 1. Discuss a node
 
-Open an Issue with the label `node:<ID>`, e.g. `node:C-0017`. Use the **Node Comment** issue template. Discussion stays attached to that one node and is discoverable forever.
+The lowest-friction entry: visit the node's page on the rendered site and click **"Discuss this node."** That opens a pre-filled issue against the right node. You can also open the **Discussion** issue template directly on GitHub for graph-wide concerns.
+
+Discussion stays attached via the `node:<ID>` label and is discoverable forever.
 
 ### 2. Edit an existing node
 
@@ -18,23 +22,21 @@ Substantive rewrites usually deserve a separate node, not an in-place edit. Edit
 
 ### 3. Add a counterclaim
 
-A counterclaim is a Claim node that contradicts an existing Claim. It is **never** an in-place rewrite.
+A counterclaim is a Claim node with `opposes: [C-XXXX]` set. It is **never** an in-place rewrite.
 
 - Create `graph/claims/C-NNNN.md` with the next available ID.
 - Add `opposes: [C-XXXX]` to the new node's edges.
 - Provide your own Evidence and Source nodes if needed.
 
-Use the **Counterclaim** issue template to flag the intent before opening a PR — it lets others contribute supporting work.
+Open a Discussion issue first if you want input before drafting; otherwise open the PR directly.
 
 ### 4. Add counter-evidence
 
 An Evidence node that cuts against a Claim. Same pattern: create `graph/evidence/E-NNNN.md`, add `opposes: [C-XXXX]`, link to a Source via `derivedFrom`.
 
-Use the **Counter-Evidence** issue template.
-
 ### 5. Pose a new question
 
-A Question node opens a line the existing graph doesn't address. New Claims and Evidence can then be linked to it. Use the **New Question** issue template.
+A Question node opens a line the existing graph doesn't address. New Claims and Evidence can then be linked to it. Search existing Questions first to avoid duplication.
 
 ## Authoring a node
 
@@ -45,7 +47,7 @@ Read `SCHEMA.md` first. Required:
 
 Pick the next available ID by listing the relevant directory and incrementing past the highest existing number.
 
-Pre-filled templates exist for each node type — see the issue and PR templates.
+The PR template prompts for affected nodes, edges touched, and related discussion.
 
 ## Pull request expectations
 

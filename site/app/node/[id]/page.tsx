@@ -42,6 +42,7 @@ export default async function NodePage({
   const graph = await loadGraph();
   const node = graph.nodes.get(id);
   if (!node) notFound();
+  const existingIssue = graph.nodeIssues[node.id] ?? null;
 
   return (
     <article
@@ -97,7 +98,7 @@ export default async function NodePage({
           <Separator />
 
           <div className="flex flex-wrap items-center gap-2">
-            <GithubIssueButton node={node} />
+            <GithubIssueButton node={node} existingIssue={existingIssue} />
             <LinkButton
               href={`/graph/${node.id}`}
               variant="ghost"

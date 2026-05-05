@@ -16,6 +16,11 @@ const PAPER_PATH = path.join(REPO_ROOT, "paper", "whitepaper-v3.md");
 const NARRATIVE_DIR = path.join(REPO_ROOT, "narratives");
 const OUT_PATH = path.join(SITE_ROOT, "lib", "graph-data.generated.json");
 
+const ISSUES_REPO = process.env.NEXT_PUBLIC_GITHUB_REPO ?? "jring-o/rdf";
+const ISSUES_PER_PAGE = 100;
+const ISSUES_REQUEST_TIMEOUT_MS = 15_000;
+const NODE_LABEL_RE = /^node:([QCEMS]-\d{4}[a-z]?)$/;
+
 const NODE_TYPES = ["question", "claim", "evidence", "method", "source"];
 const TYPE_DIRS = {
   question: "questions",
@@ -128,6 +133,97 @@ async function readNarratives() {
   return out;
 }
 
+/** Fetch all issues (open + closed) for ISSUES_REPO and bucket by node label.
+ *  Fails open: any error path returns {} so the build never breaks for lack
+ *  of network/credentials. */
+async function fetchNodeIssues() {
+  const token = process.env.GITHUB_TOKEN ?? process.env.GH_TOKEN ?? "";
+  const headers = {
+    Accept: "application/vnd.github+json",
+    "X-GitHub-Api-Version": "2022-11-28",
+    "User-Agent": "rdf-build-graph-data",
+  };
+  if (token) headers.Authorization = `Bearer ${token}`;
+
+  const map = {};
+  let page = 1;
+  while (true) {
+    const url = `https://api.github.com/repos/${ISSUES_REPO}/issues?state=all&per_page=${ISSUES_PER_PAGE}&page=${page}`;
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), ISSUES_REQUEST_TIMEOUT_MS);
+    let res;
+    try {
+      res = await fetch(url, { headers, signal: controller.signal });
+    } catch (err) {
+      console.warn(
+        `[graph-data] github issues fetch failed (page ${page}): ${err?.message ?? err}. Continuing without issues.`,
+      );
+      return {};
+    } finally {
+      clearTimeout(timer);
+    }
+    if (!res.ok) {
+      const remaining = res.headers.get("x-ratelimit-remaining");
+      const note =
+        res.status === 403 && remaining === "0"
+          ? " (rate-limited; set GITHUB_TOKEN or GH_TOKEN to authenticate)"
+          : "";
+      console.warn(
+        `[graph-data] github issues fetch returned ${res.status}${note}. Continuing without issues.`,
+      );
+      return {};
+    }
+    let batch;
+    try {
+      batch = await res.json();
+    } catch (err) {
+      console.warn(
+        `[graph-data] github issues parse failed (page ${page}): ${err?.message ?? err}. Continuing without issues.`,
+      );
+      return {};
+    }
+    if (!Array.isArray(batch)) {
+      console.warn(
+        `[graph-data] github issues response was not an array on page ${page}. Continuing without issues.`,
+      );
+      return {};
+    }
+    for (const issue of batch) {
+      // The /issues endpoint also returns PRs; skip them.
+      if (issue?.pull_request) continue;
+      const labels = Array.isArray(issue?.labels) ? issue.labels : [];
+      for (const label of labels) {
+        const name = typeof label === "string" ? label : label?.name;
+        if (typeof name !== "string") continue;
+        const m = NODE_LABEL_RE.exec(name);
+        if (!m) continue;
+        const nodeId = m[1];
+        // Prefer open issues; otherwise keep the lowest-numbered match.
+        const existing = map[nodeId];
+        const candidate = {
+          number: issue.number,
+          url: issue.html_url,
+          state: issue.state,
+          count: typeof issue.comments === "number" ? issue.comments : 0,
+        };
+        if (
+          !existing ||
+          (existing.state !== "open" && candidate.state === "open") ||
+          (existing.state === candidate.state && candidate.number < existing.number)
+        ) {
+          map[nodeId] = candidate;
+        }
+        break; // one node label per issue is the convention
+      }
+    }
+    if (batch.length < ISSUES_PER_PAGE) break;
+    page += 1;
+    // Safety stop — 50 pages * 100 = 5000 issues is plenty.
+    if (page > 50) break;
+  }
+  return map;
+}
+
 async function main() {
   const allNodes = [];
   for (const type of NODE_TYPES) {
@@ -138,18 +234,20 @@ async function main() {
 
   const paper = await readPaper();
   const narratives = await readNarratives();
+  const nodeIssues = await fetchNodeIssues();
 
   const data = {
     nodes: allNodes,
     paper,
     narratives,
+    nodeIssues,
     generatedAt: new Date().toISOString(),
   };
 
   await fs.mkdir(path.dirname(OUT_PATH), { recursive: true });
   await fs.writeFile(OUT_PATH, JSON.stringify(data));
   console.log(
-    `[graph-data] wrote ${allNodes.length} nodes, paper ${paper.length} chars, ${narratives.length} narratives → ${path.relative(SITE_ROOT, OUT_PATH)}`,
+    `[graph-data] wrote ${allNodes.length} nodes, paper ${paper.length} chars, ${narratives.length} narratives, ${Object.keys(nodeIssues).length} nodeIssues → ${path.relative(SITE_ROOT, OUT_PATH)}`,
   );
 }
 

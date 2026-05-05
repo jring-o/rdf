@@ -21,11 +21,17 @@ site/                    (Future) Next.js renderer of the graph
 
 ## How to engage with this
 
-- **Discuss a node:** open an Issue with label `node:<ID>` (e.g., `node:C-0017`).
+The lowest-friction entry is the rendered site: visit any node's page and click **"Discuss this node."** It opens a pre-filled issue tagged `node:<ID>`, so the conversation stays attached to that one node and is discoverable forever.
+
+For everything else:
+
+- **Discuss a node from GitHub:** open an Issue using the **Discussion** template; tag with `node:<ID>` (e.g., `node:C-0017`).
 - **Propose an edit:** PR against the node file.
 - **Counterclaim:** add a new Claim node with an `opposes:` edge to the original.
 - **Counter-evidence:** add a new Evidence node with `opposes:` to the relevant Claim, `derivedFrom:` a Source.
 - **New question:** add a new Question node and any Claims that `addresses:` it.
+
+The schema does the semantic work — a counterclaim is just a Claim with `opposes:` set. Every contribution uses the same schema. See `CONTRIBUTING.md` for the full model and `SCHEMA.md` for the node spec.
 
 All PRs are reviewed and merged by the working group lead. Branch protection on `main` requires PR + CODEOWNERS approval.
 

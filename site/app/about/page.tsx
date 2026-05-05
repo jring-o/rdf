@@ -173,7 +173,7 @@ export default function AboutPage() {
           adds a counterclaim, counter-evidence, or a new question. The full
           contribution model lives in{" "}
           <a
-            href="https://github.com/jring-o/resilient-data-futures/blob/main/CONTRIBUTING.md"
+            href="https://github.com/jring-o/rdf/blob/main/CONTRIBUTING.md"
             target="_blank"
             rel="noopener noreferrer"
           >

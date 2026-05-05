@@ -1,6 +1,7 @@
 import { promises as fs } from "node:fs";
 import path from "node:path";
 import matter from "gray-matter";
+import generated from "./graph-data.generated.json";
 import {
   EDGE_TYPES,
   type EdgeType,
@@ -8,10 +9,14 @@ import {
   type GraphNode,
   type IncomingEdge,
   type NodeFrontmatter,
+  type NodeIssueMap,
   type NodeType,
   type OutgoingEdge,
   NODE_TYPES,
 } from "./types";
+
+const generatedNodeIssues: NodeIssueMap =
+  ((generated as { nodeIssues?: NodeIssueMap }).nodeIssues ?? {}) as NodeIssueMap;
 
 const ROOT = path.resolve(process.cwd(), "..", "graph");
 
@@ -166,7 +171,7 @@ async function loadGraphImpl(): Promise<Graph> {
     );
   }
 
-  return { nodes, byType, bySection, brokenEdges };
+  return { nodes, byType, bySection, brokenEdges, nodeIssues: generatedNodeIssues };
 }
 
 export async function loadGraph(): Promise<Graph> {

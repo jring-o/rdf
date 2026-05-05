@@ -198,14 +198,57 @@ export async function putFile(
   branch: string,
   message: string,
   contentUtf8: string,
+  /** Required when updating an existing file (PUT to /contents wants the
+   * blob SHA of the file being replaced). Omit for net-new files. */
+  sha?: string,
 ): Promise<PutContentsResponse> {
   const contentB64 = Buffer.from(contentUtf8, "utf-8").toString("base64");
+  const body: Record<string, unknown> = {
+    message,
+    content: contentB64,
+    branch,
+  };
+  if (sha) body.sha = sha;
   return gh<PutContentsResponse>(
     `/repos/${login}/${name}/contents/${filePath}`,
     {
       token,
       method: "PUT",
-      body: { message, content: contentB64, branch },
+      body,
     },
   );
+}
+
+interface GetContentsResponse {
+  type: string;
+  /** base64-encoded — when encoding is "base64". */
+  content: string;
+  encoding: string;
+  sha: string;
+  path: string;
+}
+
+/**
+ * Read a file from a fork at a given branch. Returns null on 404 — used to
+ * detect net-new vs. existing files when applying reciprocal-edge updates.
+ */
+export async function getFile(
+  token: string,
+  login: string,
+  name: string,
+  filePath: string,
+  branch: string,
+): Promise<{ content: string; sha: string } | null> {
+  try {
+    const res = await gh<GetContentsResponse>(
+      `/repos/${login}/${name}/contents/${encodeURIComponent(filePath).replace(/%2F/g, "/")}?ref=${encodeURIComponent(branch)}`,
+      { token },
+    );
+    if (res.type !== "file" || res.encoding !== "base64") return null;
+    const content = Buffer.from(res.content, "base64").toString("utf-8");
+    return { content, sha: res.sha };
+  } catch (err) {
+    if (err instanceof GithubApiError && err.status === 404) return null;
+    throw err;
+  }
 }

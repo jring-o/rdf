@@ -85,9 +85,19 @@ export interface GraphNode {
   incoming: IncomingEdge[];
 }
 
+export interface NodeIssue {
+  number: number;
+  url: string;
+  state: string;
+  count: number;
+}
+
+export type NodeIssueMap = Record<string, NodeIssue>;
+
 export interface Graph {
   nodes: Map<string, GraphNode>;
   byType: Record<NodeType, GraphNode[]>;
   bySection: Map<string, GraphNode[]>;
   brokenEdges: Array<{ from: string; to: string; edge: EdgeType }>;
+  nodeIssues: NodeIssueMap;
 }
