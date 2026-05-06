@@ -27,12 +27,27 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
+  metadataBase: new URL("https://rdf.scios.tech"),
   title: {
     default: "Resilient Data Futures — Discourse Graph",
     template: "%s · Resilient Data Futures",
   },
   description:
     "A living, content-addressed, contributable form of the SciOS Resilient Data Futures whitepaper. Every claim, evidence item, question, method, and source is its own addressable node.",
+  openGraph: {
+    type: "website",
+    siteName: "Resilient Data Futures",
+    url: "https://rdf.scios.tech",
+    title: "Resilient Data Futures — Discourse Graph",
+    description:
+      "A living, content-addressed, contributable form of the SciOS Resilient Data Futures whitepaper. Every claim, evidence item, question, method, and source is its own addressable node.",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Resilient Data Futures — Discourse Graph",
+    description:
+      "A living, content-addressed, contributable form of the SciOS Resilient Data Futures whitepaper.",
+  },
 };
 
 export default function RootLayout({
