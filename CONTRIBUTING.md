@@ -61,11 +61,13 @@ See `skills/README.md` for install instructions. The skills are read-only — th
 
 ## Pull request expectations
 
-- One change per PR where possible. Adding three new Evidence nodes that all support C-0017 is one PR; adding a counterclaim and unrelated edge fixes is two.
+- One node per PR.
 - The PR description should restate what's changing in one paragraph. A GitHub Action runs the graph linter (`tools/lint-graph.mjs`) on every PR touching `graph/**` — schema, edge integrity, reciprocal `usesMethod` ↔ `informs` checks, body word counts.
-- All PRs require approval from a CODEOWNER (`@jring-o` for the foundational pass).
+- All PRs require approval from a GRAPHOWNER (`@jring-o` for the foundational pass).
 - No squash-and-merge for substantive content — node-by-node provenance matters.
 
 ## Code of conduct
 
-This is a working scientific argument. Disagreement is the mechanism, not the failure mode. Counterclaims with grounded evidence are welcome. Drive-by negativity without engagement at the node level is not.
+This is a working scientific argument. It contains over 100 sources, reviewed by one person manually with the assistance of LLMs. Mistakes and misrepresentations should be rare, but are expected. Updates and corrections are eagerly invited. Discourse is the literal name of the communication method. Disagreement is actively encouraged. Counterclaims with grounded evidence are welcome.
+
+Drive-by negativity without engagement at the node level is not.

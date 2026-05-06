@@ -27,7 +27,7 @@ Live site: **[rdf.scios.tech](https://rdf.scios.tech)**. Three ways to engage, i
 
 ### 1. Discuss a node
 
-Visit any node's page on the site (e.g. `/node/C-0017`) and click the discussion button. Each node has exactly **one** discussion thread on GitHub — the button reads *"Start discussion"* if no thread exists yet, or *"Join discussion (N)"* with the comment count if one does. Conversations stay attached to that single node and are discoverable forever via the `node:<ID>` label.
+Visit any node's page on the site (e.g. `https://rdf.scios.tech/node/C-0017`) and click the discussion button. Each node has exactly **one** discussion thread on GitHub — the button reads *"Start discussion"* if no thread exists yet, or *"Join discussion (N)"* with the comment count if one does. Conversations stay attached to that single node and are discoverable forever via the `node:<ID>` label.
 
 ### 2. Contribute a new node from the browser
 
@@ -50,7 +50,7 @@ See `CONTRIBUTING.md` for the full model and `SCHEMA.md` for the node spec.
 - Content (paper, graph nodes, prose): **CC BY 4.0** — see `LICENSE`
 - Code (renderer, tooling): **MIT** — see `LICENSE-CODE`
 
-Attribution: SciOS Resilient Data Futures Working Group, plus per-node contributors via Git history.
+Attribution: SciOS Resilient Data Futures Lab, plus per-node contributors via Git history.
 
 ## Provenance
 
