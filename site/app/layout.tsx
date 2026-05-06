@@ -41,12 +41,21 @@ export const metadata: Metadata = {
     title: "Resilient Data Futures — Discourse Graph",
     description:
       "A living, content-addressed, contributable form of the SciOS Resilient Data Futures whitepaper. Every claim, evidence item, question, method, and source is its own addressable node.",
+    images: [
+      {
+        url: "/og-image.png",
+        width: 1200,
+        height: 630,
+        alt: "SciOS — Resilient Data Futures",
+      },
+    ],
   },
   twitter: {
     card: "summary_large_image",
     title: "Resilient Data Futures — Discourse Graph",
     description:
       "A living, content-addressed, contributable form of the SciOS Resilient Data Futures whitepaper.",
+    images: ["/og-image.png"],
   },
 };
 
