@@ -20,6 +20,10 @@ const ISSUES_REPO = process.env.NEXT_PUBLIC_GITHUB_REPO ?? "jring-o/rdf";
 const ISSUES_PER_PAGE = 100;
 const ISSUES_REQUEST_TIMEOUT_MS = 15_000;
 const NODE_LABEL_RE = /^node:([QCEMS]-\d{4}[a-z]?)$/;
+// Title prefix `[Q-0008]` is set by the discussion issue template — reliable
+// even when GitHub silently drops the URL `labels=` param (it only applies
+// labels that already exist on the repo). Used as a fallback signal.
+const NODE_TITLE_RE = /^\s*\[([QCEMS]-\d{4}[a-z]?)\]/;
 
 const NODE_TYPES = ["question", "claim", "evidence", "method", "source"];
 const TYPE_DIRS = {
@@ -191,29 +195,36 @@ async function fetchNodeIssues() {
     for (const issue of batch) {
       // The /issues endpoint also returns PRs; skip them.
       if (issue?.pull_request) continue;
+      let nodeId = null;
       const labels = Array.isArray(issue?.labels) ? issue.labels : [];
       for (const label of labels) {
         const name = typeof label === "string" ? label : label?.name;
         if (typeof name !== "string") continue;
         const m = NODE_LABEL_RE.exec(name);
-        if (!m) continue;
-        const nodeId = m[1];
-        // Prefer open issues; otherwise keep the lowest-numbered match.
-        const existing = map[nodeId];
-        const candidate = {
-          number: issue.number,
-          url: issue.html_url,
-          state: issue.state,
-          count: typeof issue.comments === "number" ? issue.comments : 0,
-        };
-        if (
-          !existing ||
-          (existing.state !== "open" && candidate.state === "open") ||
-          (existing.state === candidate.state && candidate.number < existing.number)
-        ) {
-          map[nodeId] = candidate;
+        if (m) {
+          nodeId = m[1];
+          break;
         }
-        break; // one node label per issue is the convention
+      }
+      if (!nodeId && typeof issue?.title === "string") {
+        const m = NODE_TITLE_RE.exec(issue.title);
+        if (m) nodeId = m[1];
+      }
+      if (!nodeId) continue;
+      // Prefer open issues; otherwise keep the lowest-numbered match.
+      const existing = map[nodeId];
+      const candidate = {
+        number: issue.number,
+        url: issue.html_url,
+        state: issue.state,
+        count: typeof issue.comments === "number" ? issue.comments : 0,
+      };
+      if (
+        !existing ||
+        (existing.state !== "open" && candidate.state === "open") ||
+        (existing.state === candidate.state && candidate.number < existing.number)
+      ) {
+        map[nodeId] = candidate;
       }
     }
     if (batch.length < ISSUES_PER_PAGE) break;

@@ -1,0 +1,41 @@
+name: Sync node labels
+
+# Ensures a `node:<ID>` label exists on the repo for every node in graph/.
+# Without these labels, GitHub silently drops the `labels=` URL parameter on
+# /issues/new — so "Discuss this node" creates issues with no tag, and the
+# button can't flip to "Join discussion." Runs the same script you'd otherwise
+# run from a laptop with a PAT, but uses the auto-injected GITHUB_TOKEN.
+
+on:
+  # Manual trigger — click "Run workflow" in the Actions tab. Use this for
+  # the first-run backfill (creates all 348+ labels at once) and any time
+  # something gets out of sync.
+  workflow_dispatch:
+
+  # Auto-trigger on every node addition. Catches new nodes within seconds of
+  # merge, so the matching label exists before anyone clicks "Discuss this node."
+  push:
+    branches: [main]
+    paths:
+      - "graph/**"
+      - "tools/sync-node-labels.mjs"
+      - ".github/workflows/sync-node-labels.yml"
+
+permissions:
+  # The auto-injected GITHUB_TOKEN needs Issues: write to create labels.
+  # All other permissions stay at the default (read-only).
+  issues: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+      - name: Sync labels
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPO: ${{ github.repository }}
+        run: node tools/sync-node-labels.mjs
