@@ -69,8 +69,7 @@ export default async function BundlePage({
         <p className="text-muted-foreground">
           The anchor plus every node it directly points to or is pointed at.
           Use the &ldquo;+1 hop&rdquo; button to expand outward — each click
-          adds the next ring of neighbors. This is the bundle composed around
-          this node when generating a narrative.
+          adds the next ring of neighbors.
         </p>
       </header>
 

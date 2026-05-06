@@ -29,19 +29,11 @@ export default async function GeneratePage() {
         <h1 className="font-heading text-3xl font-semibold tracking-tight sm:text-4xl">
           Compose a new narrative
         </h1>
-        <div className="space-y-3 text-muted-foreground">
-          <p>
-            Pick an anchor, set the form, audience, and voice, and the model
-            composes a narrative from the depth-N neighborhood around that
-            node. The graph is the source of truth — the model is told to cite
-            by node ID and not to invent facts.
-          </p>
-          <p className="text-xs">
-            Routes through OpenRouter with a free-tier fallback chain:
-            Mistral Large → Gemini 2.5 Flash → Gemini 2.5 Flash-Lite. If the
-            primary is rate-limited, the next one picks up.
-          </p>
-        </div>
+        <p className="text-muted-foreground">
+          Pick an anchor, choose how to bundle the graph around it — by hop
+          count or a semantic walk that follows argumentative role — and set
+          the form, audience, length, and voice.
+        </p>
       </header>
 
       <Separator className="my-10" />

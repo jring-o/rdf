@@ -6,6 +6,7 @@ import {
   listNarratives,
   pickPrimary,
   type Narrative,
+  type NarrativeFrontmatter,
 } from "@/lib/paper";
 import { loadGraph } from "@/lib/graph";
 import { MarkdownProse } from "@/components/markdown-prose";
@@ -16,7 +17,7 @@ import {
 import { BundleSummary, type BundleSummaryData } from "@/components/bundle-summary";
 import { NodeBadge } from "@/components/node-badge";
 import { Separator } from "@/components/ui/separator";
-import type { NodeType } from "@/lib/types";
+import type { GraphNode, NodeType } from "@/lib/types";
 
 export const dynamicParams = false;
 
@@ -89,6 +90,103 @@ function buildToggleNarratives(
   });
 }
 
+function BundleDescription({
+  anchorNode,
+  anchorId,
+  frontmatter,
+}: {
+  anchorNode: GraphNode | undefined;
+  anchorId: string;
+  frontmatter: NarrativeFrontmatter;
+}) {
+  const anchorLink = anchorNode ? (
+    <Link
+      href={`/node/${anchorNode.id}`}
+      className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
+    >
+      <span className="inline-flex items-center gap-1.5">
+        <NodeBadge type={anchorNode.type} size="sm" />
+        {anchorNode.id}
+      </span>
+    </Link>
+  ) : (
+    <span className="font-mono">{anchorId}</span>
+  );
+
+  // Resolve strategy. `bundle` is the canonical record; older narratives may
+  // only have `depth` (1 or 2) and no `bundle` field.
+  const bundle =
+    frontmatter.bundle ?? (frontmatter.depth === 2 ? "2-hop" : "1-hop");
+  const closer =
+    "The bundle is then handed to an LLM to generate a narrative, work that will improve as models continue to improve.";
+
+  if (bundle === "semantic") {
+    const breadth = frontmatter.breadth;
+    const breadthThreshold =
+      breadth === "tight" ? "≥3" : breadth === "wide" ? "≥1" : "≥2";
+    const breadthLabel = breadth ?? "balanced";
+
+    let body: React.ReactNode;
+    if (anchorNode?.type === "question") {
+      body = (
+        <>
+          From a Question anchor, that pulls its addressing Claims, each
+          Claim&apos;s supporting and opposing Evidence with their Sources, the
+          Methods used, and counter-Claims expanded recursively along
+          opposes-chains; related Questions join when {breadthThreshold}{" "}
+          in-bundle Claims address them ({breadthLabel} breadth). The walk
+          stops on topology, not depth.
+        </>
+      );
+    } else if (anchorNode?.type === "claim") {
+      body = (
+        <>
+          From a Claim anchor, that pulls the argumentation lattice around it:
+          the Question it addresses, supporting and opposing Evidence with
+          their Sources, the Methods used, and counter-Claims expanded
+          recursively along opposes-chains; related Questions join when{" "}
+          {breadthThreshold} in-bundle Claims address them ({breadthLabel}{" "}
+          breadth). The walk stops on topology, not depth.
+        </>
+      );
+    } else {
+      body = (
+        <>
+          The walk pulls neighbors by argumentative role ({breadthLabel}{" "}
+          breadth) and stops on topology, not depth.
+        </>
+      );
+    }
+
+    return (
+      <p>
+        This page is one such narrative. The bundle around {anchorLink} was
+        assembled by a <strong>semantic walk</strong> — a type-aware traversal
+        driven by argumentative role rather than hop count. {body} {closer}
+      </p>
+    );
+  }
+
+  if (bundle === "2-hop") {
+    return (
+      <p>
+        This page is one such narrative. The bundle around {anchorLink} is its{" "}
+        <strong>depth-2 neighborhood</strong> — the anchor, its direct
+        neighbors, and their neighbors in turn, regardless of edge type.{" "}
+        {closer}
+      </p>
+    );
+  }
+
+  return (
+    <p>
+      This page is one such narrative. The bundle around {anchorLink} is its{" "}
+      <strong>depth-1 neighborhood</strong> — the anchor plus every node it
+      directly points to or is pointed at, regardless of edge type. {closer}
+    </p>
+  );
+}
+
 export default async function NarrativePage({
   params,
 }: {
@@ -125,31 +223,18 @@ export default async function NarrativePage({
           <p>
             Discourse graphs aren&apos;t designed to be read linearly. Once a
             graph exists — whether decomposed from a paper, accumulated
-            through contributions, or both — narratives can be composed from
-            its nodes for any audience: an academic paper, an executive
-            brief, a blog post, a position statement.
+            through contributions, or both — narratives are composed by
+            anchoring at a node and traversing its neighborhood. Each is a
+            dated view of the argument at the moment it was rendered;
+            regenerated next year against a graph that has accumulated new
+            supporting and opposing evidence, the same anchor produces a
+            different telling.
           </p>
-          <p>
-            This page is one such narrative. The depth-1 neighborhood around{" "}
-            {anchorNode ? (
-              <Link
-                href={`/node/${anchorNode.id}`}
-                className="text-primary underline decoration-primary/30 underline-offset-4 hover:decoration-primary"
-              >
-                <span className="inline-flex items-center gap-1.5">
-                  <NodeBadge type={anchorNode.type} size="sm" />
-                  {anchorNode.id}
-                </span>
-              </Link>
-            ) : (
-              <span className="font-mono">{primary.anchorId}</span>
-            )}{" "}
-            — the anchor node plus everything one hop away — was bundled and
-            handed to a language model with framing rules: cite Sources by
-            graph ID, don&apos;t invent facts, leave gaps marked. The graph
-            is the source of truth; this is one telling. Inline IDs link
-            back to their canonical nodes.
-          </p>
+          <BundleDescription
+            anchorNode={anchorNode}
+            anchorId={primary.anchorId}
+            frontmatter={primary.frontmatter}
+          />
           <p className="text-xs">
             Want to see the bundle this narrative drew from?{" "}
             <Link
