@@ -16,24 +16,34 @@ graph/
   sources/               S-NNNN.md  — references and primary sources
 SCHEMA.md                Node and edge specification
 CONTRIBUTING.md          How to propose changes, counterclaims, and counter-evidence
-site/                    (Future) Next.js renderer of the graph
+site/                    Next.js renderer — deployed at rdf.scios.tech
+skills/                  Claude Code review skills (dedup, edge resolution, edge creation)
+tools/                   Graph utilities (linter, neighborhood walker, label-sync)
 ```
 
 ## How to engage with this
 
-The lowest-friction entry is the rendered site: visit any node's page and click **"Discuss this node."** It opens a pre-filled issue tagged `node:<ID>`, so the conversation stays attached to that one node and is discoverable forever.
+Live site: **[rdf.scios.tech](https://rdf.scios.tech)**. Three ways to engage, in order of friction:
 
-For everything else:
+### 1. Discuss a node
 
-- **Discuss a node from GitHub:** open an Issue using the **Discussion** template; tag with `node:<ID>` (e.g., `node:C-0017`).
+Visit any node's page on the site (e.g. `/node/C-0017`) and click the discussion button. Each node has exactly **one** discussion thread on GitHub — the button reads *"Start discussion"* if no thread exists yet, or *"Join discussion (N)"* with the comment count if one does. Conversations stay attached to that single node and are discoverable forever via the `node:<ID>` label.
+
+### 2. Contribute a new node from the browser
+
+The **[/contribute](https://rdf.scios.tech/contribute)** page is a form-based draft tool — pick a node type, fill in the title, body, and edges, sign in with GitHub, and submit. The page opens a pre-filled "Compare & pull request" page on your fork; you click "Create pull request" to open it for review.
+
+Use this for any new node — Question, Claim, Evidence, Method, or Source. The schema does the semantic work: a counterclaim is just a Claim with `opposes:` set. Every contribution uses the same schema.
+
+### 3. Contribute via Git
+
+If you'd rather draft in your own editor:
+
 - **Propose an edit:** PR against the node file.
-- **Counterclaim:** add a new Claim node with an `opposes:` edge to the original.
-- **Counter-evidence:** add a new Evidence node with `opposes:` to the relevant Claim, `derivedFrom:` a Source.
-- **New question:** add a new Question node and any Claims that `addresses:` it.
+- **New node:** add `graph/<type>/<next-ID>.md` with valid frontmatter and edges per `SCHEMA.md`.
+- **Counterclaim or counter-evidence:** same as a new node, with `opposes:` set on the new Claim or Evidence.
 
-The schema does the semantic work — a counterclaim is just a Claim with `opposes:` set. Every contribution uses the same schema. See `CONTRIBUTING.md` for the full model and `SCHEMA.md` for the node spec.
-
-All PRs are reviewed and merged by the working group lead. Branch protection on `main` requires PR + CODEOWNERS approval.
+See `CONTRIBUTING.md` for the full model and `SCHEMA.md` for the node spec.
 
 ## License
 
@@ -57,8 +67,8 @@ First complete pass of the paper is in (2026-05-03). Graph contents:
 | Claims (C) | 53 |
 | Evidence (E) | 112 |
 | Methods (M) | 6 |
-| Sources (S) | 134 |
-| **Total nodes** | **348** |
+| Sources (S) | 135 |
+| **Total nodes** | **349** |
 <!-- node-counts:end -->
 
 Every Claim addresses at least one Question. Every Evidence node supports at least one Claim and derives from at least one Source. The Methods (Four-Tier Taxonomy, Three Architectural Principles, Four-Term Liability Formula, 1:10:100 Cost Heuristic, Failure-Mode Taxonomy, AI-Data Property ↔ Tier-3 Architecture Mapping) are referenced by the Claims that invoke them. All edge references in the graph resolve to existing nodes.

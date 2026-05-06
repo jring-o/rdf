@@ -6,6 +6,8 @@ The argument lives in the graph. Every Claim, Evidence item, Question, Method, a
 
 There is one issue template (**Discussion**) and one PR pattern. The schema does the semantic work — a counterclaim is just a Claim with `opposes:`, counter-evidence is just an Evidence with `opposes:`, and so on. Every node uses the same schema regardless of intent.
 
+New nodes can be drafted from the browser via the **[/contribute](https://rdf.scios.tech/contribute)** page (form-based, signs you in with GitHub, opens a pre-filled PR on your fork) or by hand-editing files in your own checkout. Both produce identical PRs.
+
 ### 1. Discuss a node
 
 The lowest-friction entry: visit the node's page on the rendered site and click **"Discuss this node."** That opens a pre-filled issue against the right node. You can also open the **Discussion** issue template directly on GitHub for graph-wide concerns.
@@ -24,9 +26,7 @@ Substantive rewrites usually deserve a separate node, not an in-place edit. Edit
 
 A counterclaim is a Claim node with `opposes: [C-XXXX]` set. It is **never** an in-place rewrite.
 
-- Create `graph/claims/C-NNNN.md` with the next available ID.
-- Add `opposes: [C-XXXX]` to the new node's edges.
-- Provide your own Evidence and Source nodes if needed.
+Use the [/contribute](https://rdf.scios.tech/contribute) page (pick "Claim", set `opposes`), or by hand: create `graph/claims/C-NNNN.md` with the next available ID, add `opposes: [C-XXXX]` to the edges, and provide your own Evidence and Source nodes if needed.
 
 Open a Discussion issue first if you want input before drafting; otherwise open the PR directly.
 
@@ -42,17 +42,27 @@ A Question node opens a line the existing graph doesn't address. New Claims and 
 
 Read `SCHEMA.md` first. Required:
 - YAML frontmatter with `id`, `type`, `title`, `status: draft`, `created`, and applicable `edges`.
-- A 50–250 word standalone prose body. The node must be readable and contributable in isolation.
+- A standalone prose body sized to the node type: 50–250 words for Question / Claim / Evidence, 50–400 for Method (multi-part instruments need space for N definitions), 30–300 for Source. The node must be readable and contributable in isolation.
 - Inline citations to other nodes (`S-0042`) rather than numeric references.
 
 Pick the next available ID by listing the relevant directory and incrementing past the highest existing number.
 
 The PR template prompts for affected nodes, edges touched, and related discussion.
 
+## Pre-flight your draft (optional)
+
+If you have Claude Code, three review skills in `skills/` can check your draft before you open the PR:
+
+- **`/node-dedup`** — judges whether your draft duplicates an existing node.
+- **`/node-edge-resolution`** — verifies or corrects the edges your draft declares.
+- **`/node-edge-creation`** — surfaces argumentatively-close nodes you might want to connect to but didn't.
+
+See `skills/README.md` for install instructions. The skills are read-only — they print reasoning to your terminal; you decide what to do with it.
+
 ## Pull request expectations
 
 - One change per PR where possible. Adding three new Evidence nodes that all support C-0017 is one PR; adding a counterclaim and unrelated edge fixes is two.
-- The PR description should restate what's changing in one paragraph. CI will check edge consistency.
+- The PR description should restate what's changing in one paragraph. A GitHub Action runs the graph linter (`tools/lint-graph.mjs`) on every PR touching `graph/**` — schema, edge integrity, reciprocal `usesMethod` ↔ `informs` checks, body word counts.
 - All PRs require approval from a CODEOWNER (`@jring-o` for the foundational pass).
 - No squash-and-merge for substantive content — node-by-node provenance matters.
 
